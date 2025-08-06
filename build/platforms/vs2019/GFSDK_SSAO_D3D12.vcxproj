@@ -62,7 +62,7 @@
     <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_MT|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
@@ -111,7 +111,7 @@
       <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Lib>
-      <OutputFile>$(OutDir)$(ProjectName)_MT.lib</OutputFile>
+      <OutputFile>$(OutDir)$(ProjectName).win64.static.lib</OutputFile>
     </Lib>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>

@@ -139,7 +139,7 @@ BLUR_RADIUS_4, and FP16_VIEW_DEPTHS, the RenderAO call takes:
 #define GFSDK_SSAO_STDCALL
 #else
 #define GFSDK_SSAO_CDECL __cdecl
-#define GFSDK_SSAO_EXPORT __declspec(dllexport)
+#define GFSDK_SSAO_EXPORT /*__declspec(dllexport)*/ // Commented out since we build the library as a static lib now.
 #define GFSDK_SSAO_STDCALL __stdcall
 #endif
 
