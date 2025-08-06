@@ -144,11 +144,36 @@ void HBAOSampleD3D12::Render(RenderTargetView RTV)
 
     Output.pRenderTargetView = &rtv;
     
-    {
-        GPUTimer timer(&gGPUTimers, mCommandList.Get(), GPU_TIME_AO);
-        GFSDK_SSAO_Status status = mSSAOContext->RenderAO(mCommandQueue, mCommandList.Get(), InputData, mAOParameters, Output, RenderMask);
-        assert(status == GFSDK_SSAO_OK);
-    }
+	{
+        // Not included in the original code. Needed to fix corruption on AMD cards.
+		D3D12_RESOURCE_BARRIER desc = {};
+		desc.Type = D3D12_RESOURCE_BARRIER_TYPE_TRANSITION;
+		desc.Transition.pResource = mDepthStencil[0].Get();
+		desc.Transition.Subresource = D3D12_RESOURCE_BARRIER_ALL_SUBRESOURCES;
+		desc.Transition.StateBefore = D3D12_RESOURCE_STATE_DEPTH_WRITE;
+		desc.Transition.StateAfter = D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE;
+		desc.Flags = D3D12_RESOURCE_BARRIER_FLAG_NONE;
+		mCommandList.Get()->ResourceBarrier(1, &desc);
+	}
+
+	{
+		GPUTimer timer(&gGPUTimers, mCommandList.Get(), GPU_TIME_AO);
+		GFSDK_SSAO_Status status = mSSAOContext->RenderAO(mCommandQueue, mCommandList.Get(), InputData, mAOParameters, Output, RenderMask);
+		assert(status == GFSDK_SSAO_OK);
+	}
+
+	{
+        // Not included in the original code. Needed to fix corruption on AMD cards.
+		D3D12_RESOURCE_BARRIER desc = {};
+		desc.Type = D3D12_RESOURCE_BARRIER_TYPE_TRANSITION;
+		desc.Transition.pResource = mDepthStencil[0].Get();
+		desc.Transition.Subresource = D3D12_RESOURCE_BARRIER_ALL_SUBRESOURCES;
+		desc.Transition.StateBefore = D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE;
+		desc.Transition.StateAfter = D3D12_RESOURCE_STATE_DEPTH_WRITE;
+		desc.Flags = D3D12_RESOURCE_BARRIER_FLAG_NONE;
+		mCommandList.Get()->ResourceBarrier(1, &desc);
+	}
+
     ImGui_ImplDX12_NewFrame();
     RenderUI();
     gGPUTimers.EndFrame(mCommandList.Get());
