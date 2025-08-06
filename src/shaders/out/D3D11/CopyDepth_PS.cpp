@@ -19,7 +19,7 @@
 //
 ps_5_0
 dcl_globalFlags refactoringAllowed
-dcl_constantbuffer cb0[8], immediateIndexed
+dcl_constantbuffer CB0[8], immediateIndexed
 dcl_resource_texture2d (float,float,float,float) t0
 dcl_input_ps_siv linear noperspective v0.xy, position
 dcl_output o0.x
@@ -128,7 +128,7 @@ const BYTE g_CopyDepth_PS_RESOLVE_DEPTH_0_DEPTH_LAYER_COUNT_1_D3D11[] =
 //
 ps_5_0
 dcl_globalFlags refactoringAllowed
-dcl_constantbuffer cb0[8], immediateIndexed
+dcl_constantbuffer CB0[8], immediateIndexed
 dcl_resource_texture2d (float,float,float,float) t0
 dcl_resource_texture2d (float,float,float,float) t1
 dcl_input_ps_siv linear noperspective v0.xy, position
@@ -260,7 +260,7 @@ const BYTE g_CopyDepth_PS_RESOLVE_DEPTH_0_DEPTH_LAYER_COUNT_2_D3D11[] =
 //
 ps_5_0
 dcl_globalFlags refactoringAllowed
-dcl_constantbuffer cb0[8], immediateIndexed
+dcl_constantbuffer CB0[8], immediateIndexed
 dcl_resource_texture2dms(0) (float,float,float,float) t0
 dcl_input_ps_siv linear noperspective v0.xy, position
 dcl_output o0.x
@@ -370,7 +370,7 @@ const BYTE g_CopyDepth_PS_RESOLVE_DEPTH_1_DEPTH_LAYER_COUNT_1_D3D11[] =
 //
 ps_5_0
 dcl_globalFlags refactoringAllowed
-dcl_constantbuffer cb0[8], immediateIndexed
+dcl_constantbuffer CB0[8], immediateIndexed
 dcl_resource_texture2dms(0) (float,float,float,float) t0
 dcl_resource_texture2dms(0) (float,float,float,float) t1
 dcl_input_ps_siv linear noperspective v0.xy, position

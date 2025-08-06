@@ -19,7 +19,7 @@
 //
 ps_5_0
 dcl_globalFlags refactoringAllowed
-dcl_constantbuffer cb0[5], immediateIndexed
+dcl_constantbuffer CB0[5], immediateIndexed
 dcl_sampler s0, mode_default
 dcl_sampler s1, mode_default
 dcl_resource_texture2d (float,float,float,float) t0
@@ -29,16 +29,16 @@ dcl_input_ps linear v1.xy
 dcl_output o0.xyzw
 dcl_temps 7
 sample_l_indexable(texture2d)(float,float,float,float) r0.y, v1.xyxx, t0.yxzw, s0, l(0.000000)
-mul r1.xy, v0.xyxx, l(0.250000, 0.250000, 0.000000, 0.000000)
-sample_indexable(texture2d)(float,float,float,float) r1.xyz, r1.xyxx, t1.xyzw, s1
 div r0.w, cb0[3].x, r0.y
-lt r1.w, r0.w, l(1.000000)
-if_nz r1.w
+lt r1.x, r0.w, l(1.000000)
+if_nz r1.x
   mov o0.xyzw, l(1.000000,1.000000,1.000000,1.000000)
   ret 
 endif 
-mad r2.xy, cb0[2].yxyy, v1.yxyy, cb0[2].wzww
-mul r0.xz, r0.yyyy, r2.xxyx
+mad r1.xy, cb0[2].yxyy, v1.yxyy, cb0[2].wzww
+mul r0.xz, r0.yyyy, r1.xxyx
+mul r1.xy, v0.xyxx, l(0.250000, 0.250000, 0.000000, 0.000000)
+sample_indexable(texture2d)(float,float,float,float) r1.xyz, r1.xyxx, t1.xyzw, s1
 mul r1.w, r0.w, l(0.050000)
 mov r2.y, cb0[1].z
 mov r2.z, l(0)
@@ -531,10 +531,10 @@ ret
 
 const BYTE g_DebugAO_PS_ENABLE_BLUR_0_NUM_STEPS_4_D3D11[] =
 {
-     68,  88,  66,  67, 204, 242, 
-     66,  70, 213, 103, 194,  24, 
-    242, 133,  93, 161,  26, 228, 
-     43, 155,   1,   0,   0,   0, 
+     68,  88,  66,  67, 255,  47, 
+     52, 231, 244, 150, 251, 172, 
+    150, 255,  13, 228, 203,  28, 
+      9, 120,   1,   0,   0,   0, 
      28,  66,   0,   0,   3,   0, 
       0,   0,  44,   0,   0,   0, 
     132,   0,   0,   0, 184,   0, 
@@ -593,32 +593,18 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_0_NUM_STEPS_4_D3D11[] =
      16,   0,   0,   0,   0,   0, 
       0,  96,  16,   0,   0,   0, 
       0,   0,   1,  64,   0,   0, 
-      0,   0,   0,   0,  56,   0, 
-      0,  10,  50,   0,  16,   0, 
-      1,   0,   0,   0,  70,  16, 
-     16,   0,   0,   0,   0,   0, 
-      2,  64,   0,   0,   0,   0, 
-    128,  62,   0,   0, 128,  62, 
-      0,   0,   0,   0,   0,   0, 
-      0,   0,  69,   0,   0, 139, 
-    194,   0,   0, 128,  67,  85, 
-     21,   0, 114,   0,  16,   0, 
-      1,   0,   0,   0,  70,   0, 
-     16,   0,   1,   0,   0,   0, 
-     70, 126,  16,   0,   1,   0, 
-      0,   0,   0,  96,  16,   0, 
-      1,   0,   0,   0,  14,   0, 
+      0,   0,   0,   0,  14,   0, 
       0,   8, 130,   0,  16,   0, 
       0,   0,   0,   0,  10, 128, 
      32,   0,   0,   0,   0,   0, 
       3,   0,   0,   0,  26,   0, 
      16,   0,   0,   0,   0,   0, 
-     49,   0,   0,   7, 130,   0, 
+     49,   0,   0,   7,  18,   0, 
      16,   0,   1,   0,   0,   0, 
      58,   0,  16,   0,   0,   0, 
       0,   0,   1,  64,   0,   0, 
       0,   0, 128,  63,  31,   0, 
-      4,   3,  58,   0,  16,   0, 
+      4,   3,  10,   0,  16,   0, 
       1,   0,   0,   0,  54,   0, 
       0,   8, 242,  32,  16,   0, 
       0,   0,   0,   0,   2,  64, 
@@ -627,7 +613,7 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_0_NUM_STEPS_4_D3D11[] =
     128,  63,   0,   0, 128,  63, 
      62,   0,   0,   1,  21,   0, 
       0,   1,  50,   0,   0,  11, 
-     50,   0,  16,   0,   2,   0, 
+     50,   0,  16,   0,   1,   0, 
       0,   0,  22, 133,  32,   0, 
       0,   0,   0,   0,   2,   0, 
       0,   0,  22,  21,  16,   0, 
@@ -637,7 +623,21 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_0_NUM_STEPS_4_D3D11[] =
       0,   7,  82,   0,  16,   0, 
       0,   0,   0,   0,  86,   5, 
      16,   0,   0,   0,   0,   0, 
-      6,   1,  16,   0,   2,   0, 
+      6,   1,  16,   0,   1,   0, 
+      0,   0,  56,   0,   0,  10, 
+     50,   0,  16,   0,   1,   0, 
+      0,   0,  70,  16,  16,   0, 
+      0,   0,   0,   0,   2,  64, 
+      0,   0,   0,   0, 128,  62, 
+      0,   0, 128,  62,   0,   0, 
+      0,   0,   0,   0,   0,   0, 
+     69,   0,   0, 139, 194,   0, 
+      0, 128,  67,  85,  21,   0, 
+    114,   0,  16,   0,   1,   0, 
+      0,   0,  70,   0,  16,   0, 
+      1,   0,   0,   0,  70, 126, 
+     16,   0,   1,   0,   0,   0, 
+      0,  96,  16,   0,   1,   0, 
       0,   0,  56,   0,   0,   7, 
     130,   0,  16,   0,   1,   0, 
       0,   0,  58,   0,  16,   0, 
@@ -3374,7 +3374,7 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_0_NUM_STEPS_4_D3D11[] =
 //
 ps_5_0
 dcl_globalFlags refactoringAllowed
-dcl_constantbuffer cb0[5], immediateIndexed
+dcl_constantbuffer CB0[5], immediateIndexed
 dcl_sampler s0, mode_default
 dcl_sampler s1, mode_default
 dcl_resource_texture2d (float,float,float,float) t0
@@ -3384,16 +3384,16 @@ dcl_input_ps linear v1.xy
 dcl_output o0.xyzw
 dcl_temps 8
 sample_l_indexable(texture2d)(float,float,float,float) r0.y, v1.xyxx, t0.yxzw, s0, l(0.000000)
-mul r1.xy, v0.xyxx, l(0.250000, 0.250000, 0.000000, 0.000000)
-sample_indexable(texture2d)(float,float,float,float) r1.xyz, r1.xyxx, t1.xyzw, s1
 div r0.w, cb0[3].x, r0.y
-lt r1.w, r0.w, l(1.000000)
-if_nz r1.w
+lt r1.x, r0.w, l(1.000000)
+if_nz r1.x
   mov o0.xyzw, l(1.000000,1.000000,1.000000,1.000000)
   ret 
 endif 
-mad r2.xy, cb0[2].yxyy, v1.yxyy, cb0[2].wzww
-mul r0.xz, r0.yyyy, r2.xxyx
+mad r1.xy, cb0[2].yxyy, v1.yxyy, cb0[2].wzww
+mul r0.xz, r0.yyyy, r1.xxyx
+mul r1.xy, v0.xyxx, l(0.250000, 0.250000, 0.000000, 0.000000)
+sample_indexable(texture2d)(float,float,float,float) r1.xyz, r1.xyxx, t1.xyzw, s1
 mul r1.w, r0.w, l(0.027778)
 mov r2.y, cb0[1].z
 mov r2.z, l(0)
@@ -4306,10 +4306,10 @@ ret
 
 const BYTE g_DebugAO_PS_ENABLE_BLUR_0_NUM_STEPS_8_D3D11[] =
 {
-     68,  88,  66,  67, 205,  33, 
-    227, 190, 165,  37,  57, 198, 
-     85, 180, 197, 151,  25, 168, 
-    240, 198,   1,   0,   0,   0, 
+     68,  88,  66,  67, 160, 248, 
+    229, 236, 223,  46,  80,  95, 
+     13,  50, 189, 233,  85, 123, 
+     67,  56,   1,   0,   0,   0, 
      44, 121,   0,   0,   3,   0, 
       0,   0,  44,   0,   0,   0, 
     132,   0,   0,   0, 184,   0, 
@@ -4368,32 +4368,18 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_0_NUM_STEPS_8_D3D11[] =
      16,   0,   0,   0,   0,   0, 
       0,  96,  16,   0,   0,   0, 
       0,   0,   1,  64,   0,   0, 
-      0,   0,   0,   0,  56,   0, 
-      0,  10,  50,   0,  16,   0, 
-      1,   0,   0,   0,  70,  16, 
-     16,   0,   0,   0,   0,   0, 
-      2,  64,   0,   0,   0,   0, 
-    128,  62,   0,   0, 128,  62, 
-      0,   0,   0,   0,   0,   0, 
-      0,   0,  69,   0,   0, 139, 
-    194,   0,   0, 128,  67,  85, 
-     21,   0, 114,   0,  16,   0, 
-      1,   0,   0,   0,  70,   0, 
-     16,   0,   1,   0,   0,   0, 
-     70, 126,  16,   0,   1,   0, 
-      0,   0,   0,  96,  16,   0, 
-      1,   0,   0,   0,  14,   0, 
+      0,   0,   0,   0,  14,   0, 
       0,   8, 130,   0,  16,   0, 
       0,   0,   0,   0,  10, 128, 
      32,   0,   0,   0,   0,   0, 
       3,   0,   0,   0,  26,   0, 
      16,   0,   0,   0,   0,   0, 
-     49,   0,   0,   7, 130,   0, 
+     49,   0,   0,   7,  18,   0, 
      16,   0,   1,   0,   0,   0, 
      58,   0,  16,   0,   0,   0, 
       0,   0,   1,  64,   0,   0, 
       0,   0, 128,  63,  31,   0, 
-      4,   3,  58,   0,  16,   0, 
+      4,   3,  10,   0,  16,   0, 
       1,   0,   0,   0,  54,   0, 
       0,   8, 242,  32,  16,   0, 
       0,   0,   0,   0,   2,  64, 
@@ -4402,7 +4388,7 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_0_NUM_STEPS_8_D3D11[] =
     128,  63,   0,   0, 128,  63, 
      62,   0,   0,   1,  21,   0, 
       0,   1,  50,   0,   0,  11, 
-     50,   0,  16,   0,   2,   0, 
+     50,   0,  16,   0,   1,   0, 
       0,   0,  22, 133,  32,   0, 
       0,   0,   0,   0,   2,   0, 
       0,   0,  22,  21,  16,   0, 
@@ -4412,7 +4398,21 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_0_NUM_STEPS_8_D3D11[] =
       0,   7,  82,   0,  16,   0, 
       0,   0,   0,   0,  86,   5, 
      16,   0,   0,   0,   0,   0, 
-      6,   1,  16,   0,   2,   0, 
+      6,   1,  16,   0,   1,   0, 
+      0,   0,  56,   0,   0,  10, 
+     50,   0,  16,   0,   1,   0, 
+      0,   0,  70,  16,  16,   0, 
+      0,   0,   0,   0,   2,  64, 
+      0,   0,   0,   0, 128,  62, 
+      0,   0, 128,  62,   0,   0, 
+      0,   0,   0,   0,   0,   0, 
+     69,   0,   0, 139, 194,   0, 
+      0, 128,  67,  85,  21,   0, 
+    114,   0,  16,   0,   1,   0, 
+      0,   0,  70,   0,  16,   0, 
+      1,   0,   0,   0,  70, 126, 
+     16,   0,   1,   0,   0,   0, 
+      0,  96,  16,   0,   1,   0, 
       0,   0,  56,   0,   0,   7, 
     130,   0,  16,   0,   1,   0, 
       0,   0,  58,   0,  16,   0, 
@@ -9498,7 +9498,7 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_0_NUM_STEPS_8_D3D11[] =
 //
 ps_5_0
 dcl_globalFlags refactoringAllowed
-dcl_constantbuffer cb0[5], immediateIndexed
+dcl_constantbuffer CB0[5], immediateIndexed
 dcl_sampler s0, mode_default
 dcl_sampler s1, mode_default
 dcl_resource_texture2d (float,float,float,float) t0
@@ -9508,18 +9508,18 @@ dcl_input_ps linear v1.xy
 dcl_output o0.xy
 dcl_temps 7
 sample_l_indexable(texture2d)(float,float,float,float) r0.w, v1.xyxx, t0.yzwx, s0, l(0.000000)
-mul r1.xy, v0.xyxx, l(0.250000, 0.250000, 0.000000, 0.000000)
-sample_indexable(texture2d)(float,float,float,float) r1.xyz, r1.xyxx, t1.xyzw, s1
-div r1.w, cb0[3].x, r0.w
-lt r2.x, r1.w, l(1.000000)
-if_nz r2.x
+div r1.x, cb0[3].x, r0.w
+lt r1.y, r1.x, l(1.000000)
+if_nz r1.y
   mov o0.x, l(1.000000)
   mov o0.y, r0.w
   ret 
 endif 
-mad r2.xy, cb0[2].xyxx, v1.xyxx, cb0[2].zwzz
-mul r0.yz, r0.wwww, r2.xxyx
-mul r2.x, r1.w, l(0.050000)
+mad r1.yz, cb0[2].xxyx, v1.xxyx, cb0[2].zzwz
+mul r0.yz, r0.wwww, r1.yyzy
+mul r1.yz, v0.xxyx, l(0.000000, 0.250000, 0.250000, 0.000000)
+sample_indexable(texture2d)(float,float,float,float) r1.yzw, r1.yzyy, t1.wxyz, s1
+mul r2.x, r1.x, l(0.050000)
 mov r2.y, cb0[1].z
 mov r2.z, l(0)
 add r2.yz, r2.yyzy, v1.xxyx
@@ -9561,41 +9561,41 @@ mad r2.yzw, r2.wwyz, r3.yyzx, -r4.xxyz
 dp3 r3.x, r2.yzwy, r2.yzwy
 rsq r3.x, r3.x
 mul r2.yzw, r2.yyzw, r3.xxxx
-mad r1.z, r1.z, r2.x, l(1.000000)
-mul r3.xy, r1.xyxx, r1.zzzz
+mad r1.w, r1.w, r2.x, l(1.000000)
+mul r3.xy, r1.yzyy, r1.wwww
 round_ne r3.xy, r3.xyxx
 mul r3.zw, cb0[1].zzzw, l(0.000000, 0.000000, 4.000000, 4.000000)
 mad r3.xy, r3.xyxx, r3.zwzz, v1.xyxx
 sample_l_indexable(texture2d)(float,float,float,float) r4.z, r3.xyxx, t0.yzxw, s0, l(0.000000)
 mad r3.xy, cb0[2].xyxx, r3.xyxx, cb0[2].zwzz
 mul r4.xy, r4.zzzz, r3.xyxx
-mad r2.x, r1.w, l(0.050000), r1.z
+mad r2.x, r1.x, l(0.050000), r1.w
 add r4.xyz, -r0.yzwy, r4.xyzx
 dp3 r3.x, r4.xyzx, r4.xyzx
 dp3 r3.y, r2.yzwy, r4.xyzx
 rsq r4.x, r3.x
 mad_sat r3.y, r3.y, r4.x, -cb0[3].w
 mad_sat r3.x, r3.x, cb0[3].z, l(1.000000)
-mul r4.xy, r1.xyxx, r2.xxxx
+mul r4.xy, r1.yzyy, r2.xxxx
 round_ne r4.xy, r4.xyxx
 mad r4.xy, r4.xyxx, r3.zwzz, v1.xyxx
 sample_l_indexable(texture2d)(float,float,float,float) r5.z, r4.xyxx, t0.yzxw, s0, l(0.000000)
 mad r4.xy, cb0[2].xyxx, r4.xyxx, cb0[2].zwzz
 mul r5.xy, r5.zzzz, r4.xyxx
-mad r4.x, r1.w, l(0.050000), r2.x
+mad r4.x, r1.x, l(0.050000), r2.x
 add r4.yzw, -r0.yyzw, r5.xxyz
 dp3 r5.x, r4.yzwy, r4.yzwy
 dp3 r4.y, r2.yzwy, r4.yzwy
 rsq r4.z, r5.x
 mad_sat r4.y, r4.y, r4.z, -cb0[3].w
 mad_sat r4.z, r5.x, cb0[3].z, l(1.000000)
-mul r5.xy, r1.xyxx, r4.xxxx
+mul r5.xy, r1.yzyy, r4.xxxx
 round_ne r5.xy, r5.xyxx
 mad r5.xy, r5.xyxx, r3.zwzz, v1.xyxx
 sample_l_indexable(texture2d)(float,float,float,float) r6.z, r5.xyxx, t0.yzxw, s0, l(0.000000)
 mad r5.xy, cb0[2].xyxx, r5.xyxx, cb0[2].zwzz
 mul r6.xy, r6.zzzz, r5.xyxx
-mad r1.w, r1.w, l(0.050000), r4.x
+mad r1.x, r1.x, l(0.050000), r4.x
 add r5.xyz, -r0.yzwy, r6.xyzx
 dp3 r4.w, r5.xyzx, r5.xyzx
 dp3 r5.x, r2.yzwy, r5.xyzx
@@ -9604,7 +9604,7 @@ mad_sat r5.x, r5.x, r5.y, -cb0[3].w
 mad_sat r4.w, r4.w, cb0[3].z, l(1.000000)
 mul r4.w, r4.w, r5.x
 mad r4.y, r4.y, r4.z, r4.w
-mul r4.zw, r1.xxxy, r1.wwww
+mul r4.zw, r1.yyyz, r1.xxxx
 round_ne r4.zw, r4.zzzw
 mad r4.zw, r4.zzzw, r3.zzzw, v1.xxxy
 sample_l_indexable(texture2d)(float,float,float,float) r5.z, r4.zwzz, t0.yzxw, s0, l(0.000000)
@@ -9617,10 +9617,10 @@ rsq r5.x, r4.z
 mad_sat r4.w, r4.w, r5.x, -cb0[3].w
 mad_sat r4.z, r4.z, cb0[3].z, l(1.000000)
 mad r4.y, r4.w, r4.z, r4.y
-mul r4.zw, r1.xxxy, l(0.000000, 0.000000, 0.707107, 0.707107)
-mad r5.x, r1.x, l(0.707107), -r4.w
+mul r4.zw, r1.yyyz, l(0.000000, 0.000000, 0.707107, 0.707107)
+mad r5.x, r1.y, l(0.707107), -r4.w
 add r5.y, r4.z, r4.w
-mul r5.zw, r1.zzzz, r5.xxxy
+mul r5.zw, r1.wwww, r5.xxxy
 round_ne r5.zw, r5.zzzw
 mad r5.zw, r5.zzzw, r3.zzzw, v1.xxxy
 sample_l_indexable(texture2d)(float,float,float,float) r6.z, r5.zwzz, t0.yzxw, s0, l(0.000000)
@@ -9660,7 +9660,7 @@ rsq r5.w, r4.y
 mad_sat r5.z, r5.z, r5.w, -cb0[3].w
 mad_sat r4.y, r4.y, cb0[3].z, l(1.000000)
 mad r3.y, r5.z, r4.y, r3.y
-mul r5.xy, r1.wwww, r5.xyxx
+mul r5.xy, r1.xxxx, r5.xyxx
 round_ne r5.xy, r5.xyxx
 mad r5.xy, r5.xyxx, r3.zwzz, v1.xyxx
 sample_l_indexable(texture2d)(float,float,float,float) r6.z, r5.xyxx, t0.yzxw, s0, l(0.000000)
@@ -9673,9 +9673,9 @@ rsq r5.y, r4.y
 mad_sat r5.x, r5.x, r5.y, -cb0[3].w
 mad_sat r4.y, r4.y, cb0[3].z, l(1.000000)
 mad r3.y, r5.x, r4.y, r3.y
-mad r5.x, r1.x, l(-0.000000), -r1.y
-mad r5.y, r1.y, l(-0.000000), r1.x
-mul r5.zw, r1.zzzz, r5.xxxy
+mad r5.x, r1.y, l(-0.000000), -r1.z
+mad r5.y, r1.z, l(-0.000000), r1.y
+mul r5.zw, r1.wwww, r5.xxxy
 round_ne r5.zw, r5.zzzw
 mad r5.zw, r5.zzzw, r3.zzzw, v1.xxxy
 sample_l_indexable(texture2d)(float,float,float,float) r6.z, r5.zwzz, t0.yzxw, s0, l(0.000000)
@@ -9714,7 +9714,7 @@ rsq r5.w, r4.y
 mad_sat r5.z, r5.z, r5.w, -cb0[3].w
 mad_sat r4.y, r4.y, cb0[3].z, l(1.000000)
 mad r3.y, r5.z, r4.y, r3.y
-mul r5.xy, r1.wwww, r5.xyxx
+mul r5.xy, r1.xxxx, r5.xyxx
 round_ne r5.xy, r5.xyxx
 mad r5.xy, r5.xyxx, r3.zwzz, v1.xyxx
 sample_l_indexable(texture2d)(float,float,float,float) r6.z, r5.xyxx, t0.yzxw, s0, l(0.000000)
@@ -9727,9 +9727,9 @@ rsq r5.y, r4.y
 mad_sat r5.x, r5.x, r5.y, -cb0[3].w
 mad_sat r4.y, r4.y, cb0[3].z, l(1.000000)
 mad r3.y, r5.x, r4.y, r3.y
-mad r5.x, r1.x, l(-0.707107), -r4.w
-mad r5.y, r1.y, l(-0.707107), r4.z
-mul r4.yz, r1.zzzz, r5.xxyx
+mad r5.x, r1.y, l(-0.707107), -r4.w
+mad r5.y, r1.z, l(-0.707107), r4.z
+mul r4.yz, r1.wwww, r5.xxyx
 round_ne r4.yz, r4.yyzy
 mad r4.yz, r4.yyzy, r3.zzwz, v1.xxyx
 sample_l_indexable(texture2d)(float,float,float,float) r6.z, r4.yzyy, t0.yzxw, s0, l(0.000000)
@@ -9768,7 +9768,7 @@ rsq r4.z, r5.z
 mad_sat r4.y, r4.y, r4.z, -cb0[3].w
 mad_sat r4.z, r5.z, cb0[3].z, l(1.000000)
 mad r3.y, r4.y, r4.z, r3.y
-mul r4.yz, r1.wwww, r5.xxyx
+mul r4.yz, r1.xxxx, r5.xxyx
 round_ne r4.yz, r4.yyzy
 mad r4.yz, r4.yyzy, r3.zzwz, v1.xxyx
 sample_l_indexable(texture2d)(float,float,float,float) r5.z, r4.yzyy, t0.yzxw, s0, l(0.000000)
@@ -9781,9 +9781,9 @@ rsq r4.z, r5.x
 mad_sat r4.y, r4.y, r4.z, -cb0[3].w
 mad_sat r4.z, r5.x, cb0[3].z, l(1.000000)
 mad r3.y, r4.y, r4.z, r3.y
-mad r5.x, -r1.y, l(-0.000000), -r1.x
-mad r5.y, r1.x, l(-0.000000), -r1.y
-mul r4.yz, r1.zzzz, r5.xxyx
+mad r5.x, -r1.z, l(-0.000000), -r1.y
+mad r5.y, r1.y, l(-0.000000), -r1.z
+mul r4.yz, r1.wwww, r5.xxyx
 round_ne r4.yz, r4.yyzy
 mad r4.yz, r4.yyzy, r3.zzwz, v1.xxyx
 sample_l_indexable(texture2d)(float,float,float,float) r6.z, r4.yzyy, t0.yzxw, s0, l(0.000000)
@@ -9822,7 +9822,7 @@ rsq r4.z, r5.z
 mad_sat r4.y, r4.y, r4.z, -cb0[3].w
 mad_sat r4.z, r5.z, cb0[3].z, l(1.000000)
 mad r3.y, r4.y, r4.z, r3.y
-mul r4.yz, r1.wwww, r5.xxyx
+mul r4.yz, r1.xxxx, r5.xxyx
 round_ne r4.yz, r4.yyzy
 mad r4.yz, r4.yyzy, r3.zzwz, v1.xxyx
 sample_l_indexable(texture2d)(float,float,float,float) r5.z, r4.yzyy, t0.yzxw, s0, l(0.000000)
@@ -9835,10 +9835,10 @@ rsq r4.z, r5.x
 mad_sat r4.y, r4.y, r4.z, -cb0[3].w
 mad_sat r4.z, r5.x, cb0[3].z, l(1.000000)
 mad r3.y, r4.y, r4.z, r3.y
-mul r4.y, r1.y, l(-0.707107)
-mad r5.x, r1.x, l(-0.707107), -r4.y
-dp2 r5.y, r1.yxyy, l(-0.707107, -0.707107, 0.000000, 0.000000)
-mul r4.yz, r1.zzzz, r5.xxyx
+mul r4.y, r1.z, l(-0.707107)
+mad r5.x, r1.y, l(-0.707107), -r4.y
+dp2 r5.y, r1.zyzz, l(-0.707107, -0.707107, 0.000000, 0.000000)
+mul r4.yz, r1.wwww, r5.xxyx
 round_ne r4.yz, r4.yyzy
 mad r4.yz, r4.yyzy, r3.zzwz, v1.xxyx
 sample_l_indexable(texture2d)(float,float,float,float) r6.z, r4.yzyy, t0.yzxw, s0, l(0.000000)
@@ -9877,7 +9877,7 @@ rsq r4.z, r5.z
 mad_sat r4.y, r4.y, r4.z, -cb0[3].w
 mad_sat r4.z, r5.z, cb0[3].z, l(1.000000)
 mad r3.y, r4.y, r4.z, r3.y
-mul r4.yz, r1.wwww, r5.xxyx
+mul r4.yz, r1.xxxx, r5.xxyx
 round_ne r4.yz, r4.yyzy
 mad r4.yz, r4.yyzy, r3.zzwz, v1.xxyx
 sample_l_indexable(texture2d)(float,float,float,float) r5.z, r4.yzyy, t0.yzxw, s0, l(0.000000)
@@ -9890,9 +9890,9 @@ rsq r4.z, r5.x
 mad_sat r4.y, r4.y, r4.z, -cb0[3].w
 mad_sat r4.z, r5.x, cb0[3].z, l(1.000000)
 mad r3.y, r4.y, r4.z, r3.y
-mad r5.x, r1.x, l(0.000000), r1.y
-mad r5.y, r1.y, l(0.000000), -r1.x
-mul r4.yz, r1.zzzz, r5.xxyx
+mad r5.x, r1.y, l(0.000000), r1.z
+mad r5.y, r1.z, l(0.000000), -r1.y
+mul r4.yz, r1.wwww, r5.xxyx
 round_ne r4.yz, r4.yyzy
 mad r4.yz, r4.yyzy, r3.zzwz, v1.xxyx
 sample_l_indexable(texture2d)(float,float,float,float) r6.z, r4.yzyy, t0.yzxw, s0, l(0.000000)
@@ -9931,7 +9931,7 @@ rsq r4.z, r5.z
 mad_sat r4.y, r4.y, r4.z, -cb0[3].w
 mad_sat r4.z, r5.z, cb0[3].z, l(1.000000)
 mad r3.y, r4.y, r4.z, r3.y
-mul r4.yz, r1.wwww, r5.xxyx
+mul r4.yz, r1.xxxx, r5.xxyx
 round_ne r4.yz, r4.yyzy
 mad r4.yz, r4.yyzy, r3.zzwz, v1.xxyx
 sample_l_indexable(texture2d)(float,float,float,float) r5.z, r4.yzyy, t0.yzxw, s0, l(0.000000)
@@ -9944,35 +9944,35 @@ rsq r4.z, r5.x
 mad_sat r4.y, r4.y, r4.z, -cb0[3].w
 mad_sat r4.z, r5.x, cb0[3].z, l(1.000000)
 mad r3.y, r4.y, r4.z, r3.y
-mul r4.y, r1.y, l(-0.707107)
-mad r5.x, r1.x, l(0.707107), -r4.y
-dp2 r5.y, r1.yxyy, l(0.707107, -0.707107, 0.000000, 0.000000)
-mul r1.xy, r1.zzzz, r5.xyxx
-round_ne r1.xy, r1.xyxx
-mad r1.xy, r1.xyxx, r3.zwzz, v1.xyxx
-sample_l_indexable(texture2d)(float,float,float,float) r4.w, r1.xyxx, t0.wyzx, s0, l(0.000000)
-mad r1.xy, cb0[2].xyxx, r1.xyxx, cb0[2].zwzz
-mul r4.yz, r4.wwww, r1.xxyx
-add r1.xyz, -r0.yzwy, r4.yzwy
-dp3 r4.y, r1.xyzx, r1.xyzx
-dp3 r1.x, r2.yzwy, r1.xyzx
-rsq r1.y, r4.y
-mad_sat r1.x, r1.x, r1.y, -cb0[3].w
-mad_sat r1.y, r4.y, cb0[3].z, l(1.000000)
-mad r1.x, r1.x, r1.y, r3.x
-mul r1.yz, r2.xxxx, r5.xxyx
+mul r4.y, r1.z, l(-0.707107)
+mad r5.x, r1.y, l(0.707107), -r4.y
+dp2 r5.y, r1.zyzz, l(0.707107, -0.707107, 0.000000, 0.000000)
+mul r1.yz, r1.wwww, r5.xxyx
 round_ne r1.yz, r1.yyzy
 mad r1.yz, r1.yyzy, r3.zzwz, v1.xxyx
 sample_l_indexable(texture2d)(float,float,float,float) r4.w, r1.yzyy, t0.wyzx, s0, l(0.000000)
 mad r1.yz, cb0[2].xxyx, r1.yyzy, cb0[2].zzwz
 mul r4.yz, r4.wwww, r1.yyzy
+add r1.yzw, -r0.yyzw, r4.yyzw
+dp3 r4.y, r1.yzwy, r1.yzwy
+dp3 r1.y, r2.yzwy, r1.yzwy
+rsq r1.z, r4.y
+mad_sat r1.y, r1.y, r1.z, -cb0[3].w
+mad_sat r1.z, r4.y, cb0[3].z, l(1.000000)
+mad r1.y, r1.y, r1.z, r3.x
+mul r1.zw, r2.xxxx, r5.xxxy
+round_ne r1.zw, r1.zzzw
+mad r1.zw, r1.zzzw, r3.zzzw, v1.xxxy
+sample_l_indexable(texture2d)(float,float,float,float) r4.w, r1.zwzz, t0.wyzx, s0, l(0.000000)
+mad r1.zw, cb0[2].xxxy, r1.zzzw, cb0[2].zzzw
+mul r4.yz, r4.wwww, r1.zzwz
 add r4.yzw, -r0.yyzw, r4.yyzw
-dp3 r1.y, r4.yzwy, r4.yzwy
-dp3 r1.z, r2.yzwy, r4.yzwy
-rsq r2.x, r1.y
-mad_sat r1.z, r1.z, r2.x, -cb0[3].w
-mad_sat r1.y, r1.y, cb0[3].z, l(1.000000)
-mad r1.y, r1.z, r1.y, r3.y
+dp3 r1.z, r4.yzwy, r4.yzwy
+dp3 r1.w, r2.yzwy, r4.yzwy
+rsq r2.x, r1.z
+mad_sat r1.w, r1.w, r2.x, -cb0[3].w
+mad_sat r1.z, r1.z, cb0[3].z, l(1.000000)
+mad r1.z, r1.w, r1.z, r3.y
 mul r3.xy, r4.xxxx, r5.xyxx
 round_ne r3.xy, r3.xyxx
 mad r3.xy, r3.xyxx, r3.zwzz, v1.xyxx
@@ -9980,27 +9980,27 @@ sample_l_indexable(texture2d)(float,float,float,float) r4.z, r3.xyxx, t0.yzxw, s
 mad r3.xy, cb0[2].xyxx, r3.xyxx, cb0[2].zwzz
 mul r4.xy, r4.zzzz, r3.xyxx
 add r4.xyz, -r0.yzwy, r4.xyzx
-dp3 r1.z, r4.xyzx, r4.xyzx
+dp3 r1.w, r4.xyzx, r4.xyzx
 dp3 r2.x, r2.yzwy, r4.xyzx
-rsq r3.x, r1.z
+rsq r3.x, r1.w
 mad_sat r2.x, r2.x, r3.x, -cb0[3].w
-mad_sat r1.z, r1.z, cb0[3].z, l(1.000000)
-mad r1.y, r2.x, r1.z, r1.y
-mul r1.zw, r1.wwww, r5.xxxy
-round_ne r1.zw, r1.zzzw
-mad r1.zw, r1.zzzw, r3.zzzw, v1.xxxy
-sample_l_indexable(texture2d)(float,float,float,float) r3.z, r1.zwzz, t0.yzxw, s0, l(0.000000)
-mad r1.zw, cb0[2].xxxy, r1.zzzw, cb0[2].zzzw
-mul r3.xy, r3.zzzz, r1.zwzz
+mad_sat r1.w, r1.w, cb0[3].z, l(1.000000)
+mad r1.z, r2.x, r1.w, r1.z
+mul r1.xw, r1.xxxx, r5.xxxy
+round_ne r1.xw, r1.xxxw
+mad r1.xw, r1.xxxw, r3.zzzw, v1.xxxy
+sample_l_indexable(texture2d)(float,float,float,float) r3.z, r1.xwxx, t0.yzxw, s0, l(0.000000)
+mad r1.xw, cb0[2].xxxy, r1.xxxw, cb0[2].zzzw
+mul r3.xy, r3.zzzz, r1.xwxx
 add r3.xyz, -r0.yzwy, r3.xyzx
 dp3 r0.y, r3.xyzx, r3.xyzx
 dp3 r0.z, r2.yzwy, r3.xyzx
-rsq r1.z, r0.y
-mad_sat r0.z, r0.z, r1.z, -cb0[3].w
+rsq r1.x, r0.y
+mad_sat r0.z, r0.z, r1.x, -cb0[3].w
 mad_sat r0.y, r0.y, cb0[3].z, l(1.000000)
-mad r0.y, r0.z, r0.y, r1.y
+mad r0.y, r0.z, r0.y, r1.z
 mul r0.y, r0.y, cb0[4].y
-mad r0.y, r1.x, cb0[4].x, r0.y
+mad r0.y, r1.y, cb0[4].x, r0.y
 mad_sat r0.x, -r0.y, l(0.062500), l(1.000000)
 mov o0.xy, r0.xwxx
 ret 
@@ -10009,10 +10009,10 @@ ret
 
 const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_4_D3D11[] =
 {
-     68,  88,  66,  67,  93, 161, 
-    117, 213,  19,  27, 160, 186, 
-     33, 103, 195, 191, 179, 217, 
-     37, 150,   1,   0,   0,   0, 
+     68,  88,  66,  67, 228,  70, 
+    243, 255,  87, 202, 198, 231, 
+    204,  67, 134, 242,  67,   0, 
+    150,  13,   1,   0,   0,   0, 
     240,  65,   0,   0,   3,   0, 
       0,   0,  44,   0,   0,   0, 
     132,   0,   0,   0, 184,   0, 
@@ -10071,33 +10071,19 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_4_D3D11[] =
      16,   0,   0,   0,   0,   0, 
       0,  96,  16,   0,   0,   0, 
       0,   0,   1,  64,   0,   0, 
-      0,   0,   0,   0,  56,   0, 
-      0,  10,  50,   0,  16,   0, 
-      1,   0,   0,   0,  70,  16, 
-     16,   0,   0,   0,   0,   0, 
-      2,  64,   0,   0,   0,   0, 
-    128,  62,   0,   0, 128,  62, 
-      0,   0,   0,   0,   0,   0, 
-      0,   0,  69,   0,   0, 139, 
-    194,   0,   0, 128,  67,  85, 
-     21,   0, 114,   0,  16,   0, 
-      1,   0,   0,   0,  70,   0, 
-     16,   0,   1,   0,   0,   0, 
-     70, 126,  16,   0,   1,   0, 
-      0,   0,   0,  96,  16,   0, 
-      1,   0,   0,   0,  14,   0, 
-      0,   8, 130,   0,  16,   0, 
+      0,   0,   0,   0,  14,   0, 
+      0,   8,  18,   0,  16,   0, 
       1,   0,   0,   0,  10, 128, 
      32,   0,   0,   0,   0,   0, 
       3,   0,   0,   0,  58,   0, 
      16,   0,   0,   0,   0,   0, 
-     49,   0,   0,   7,  18,   0, 
-     16,   0,   2,   0,   0,   0, 
-     58,   0,  16,   0,   1,   0, 
+     49,   0,   0,   7,  34,   0, 
+     16,   0,   1,   0,   0,   0, 
+     10,   0,  16,   0,   1,   0, 
       0,   0,   1,  64,   0,   0, 
       0,   0, 128,  63,  31,   0, 
-      4,   3,  10,   0,  16,   0, 
-      2,   0,   0,   0,  54,   0, 
+      4,   3,  26,   0,  16,   0, 
+      1,   0,   0,   0,  54,   0, 
       0,   5,  18,  32,  16,   0, 
       0,   0,   0,   0,   1,  64, 
       0,   0,   0,   0, 128,  63, 
@@ -10106,20 +10092,34 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_4_D3D11[] =
      58,   0,  16,   0,   0,   0, 
       0,   0,  62,   0,   0,   1, 
      21,   0,   0,   1,  50,   0, 
-      0,  11,  50,   0,  16,   0, 
-      2,   0,   0,   0,  70, 128, 
+      0,  11,  98,   0,  16,   0, 
+      1,   0,   0,   0,   6, 129, 
      32,   0,   0,   0,   0,   0, 
-      2,   0,   0,   0,  70,  16, 
+      2,   0,   0,   0,   6,  17, 
      16,   0,   1,   0,   0,   0, 
-    230, 138,  32,   0,   0,   0, 
+    166, 139,  32,   0,   0,   0, 
       0,   0,   2,   0,   0,   0, 
      56,   0,   0,   7,  98,   0, 
      16,   0,   0,   0,   0,   0, 
     246,  15,  16,   0,   0,   0, 
-      0,   0,   6,   1,  16,   0, 
-      2,   0,   0,   0,  56,   0, 
+      0,   0,  86,   6,  16,   0, 
+      1,   0,   0,   0,  56,   0, 
+      0,  10,  98,   0,  16,   0, 
+      1,   0,   0,   0,   6,  17, 
+     16,   0,   0,   0,   0,   0, 
+      2,  64,   0,   0,   0,   0, 
+      0,   0,   0,   0, 128,  62, 
+      0,   0, 128,  62,   0,   0, 
+      0,   0,  69,   0,   0, 139, 
+    194,   0,   0, 128,  67,  85, 
+     21,   0, 226,   0,  16,   0, 
+      1,   0,   0,   0, 150,   5, 
+     16,   0,   1,   0,   0,   0, 
+     54, 121,  16,   0,   1,   0, 
+      0,   0,   0,  96,  16,   0, 
+      1,   0,   0,   0,  56,   0, 
       0,   7,  18,   0,  16,   0, 
-      2,   0,   0,   0,  58,   0, 
+      2,   0,   0,   0,  10,   0, 
      16,   0,   1,   0,   0,   0, 
       1,  64,   0,   0, 205, 204, 
      76,  61,  54,   0,   0,   6, 
@@ -10340,16 +10340,16 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_4_D3D11[] =
      86,  14,  16,   0,   2,   0, 
       0,   0,   6,   0,  16,   0, 
       3,   0,   0,   0,  50,   0, 
-      0,   9,  66,   0,  16,   0, 
-      1,   0,   0,   0,  42,   0, 
+      0,   9, 130,   0,  16,   0, 
+      1,   0,   0,   0,  58,   0, 
      16,   0,   1,   0,   0,   0, 
      10,   0,  16,   0,   2,   0, 
       0,   0,   1,  64,   0,   0, 
       0,   0, 128,  63,  56,   0, 
       0,   7,  50,   0,  16,   0, 
-      3,   0,   0,   0,  70,   0, 
+      3,   0,   0,   0, 150,   5, 
      16,   0,   1,   0,   0,   0, 
-    166,  10,  16,   0,   1,   0, 
+    246,  15,  16,   0,   1,   0, 
       0,   0,  64,   0,   0,   5, 
      50,   0,  16,   0,   3,   0, 
       0,   0,  70,   0,  16,   0, 
@@ -10389,10 +10389,10 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_4_D3D11[] =
       0,   0,  70,   0,  16,   0, 
       3,   0,   0,   0,  50,   0, 
       0,   9,  18,   0,  16,   0, 
-      2,   0,   0,   0,  58,   0, 
+      2,   0,   0,   0,  10,   0, 
      16,   0,   1,   0,   0,   0, 
       1,  64,   0,   0, 205, 204, 
-     76,  61,  42,   0,  16,   0, 
+     76,  61,  58,   0,  16,   0, 
       1,   0,   0,   0,   0,   0, 
       0,   8, 114,   0,  16,   0, 
       4,   0,   0,   0, 150,   7, 
@@ -10427,7 +10427,7 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_4_D3D11[] =
       0,   0,   1,  64,   0,   0, 
       0,   0, 128,  63,  56,   0, 
       0,   7,  50,   0,  16,   0, 
-      4,   0,   0,   0,  70,   0, 
+      4,   0,   0,   0, 150,   5, 
      16,   0,   1,   0,   0,   0, 
       6,   0,  16,   0,   2,   0, 
       0,   0,  64,   0,   0,   5, 
@@ -10462,7 +10462,7 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_4_D3D11[] =
      70,   0,  16,   0,   4,   0, 
       0,   0,  50,   0,   0,   9, 
      18,   0,  16,   0,   4,   0, 
-      0,   0,  58,   0,  16,   0, 
+      0,   0,  10,   0,  16,   0, 
       1,   0,   0,   0,   1,  64, 
       0,   0, 205, 204,  76,  61, 
      10,   0,  16,   0,   2,   0, 
@@ -10500,7 +10500,7 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_4_D3D11[] =
       1,  64,   0,   0,   0,   0, 
     128,  63,  56,   0,   0,   7, 
      50,   0,  16,   0,   5,   0, 
-      0,   0,  70,   0,  16,   0, 
+      0,   0, 150,   5,  16,   0, 
       1,   0,   0,   0,   6,   0, 
      16,   0,   4,   0,   0,   0, 
      64,   0,   0,   5,  50,   0, 
@@ -10533,9 +10533,9 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_4_D3D11[] =
       0,   0, 166,  10,  16,   0, 
       6,   0,   0,   0,  70,   0, 
      16,   0,   5,   0,   0,   0, 
-     50,   0,   0,   9, 130,   0, 
+     50,   0,   0,   9,  18,   0, 
      16,   0,   1,   0,   0,   0, 
-     58,   0,  16,   0,   1,   0, 
+     10,   0,  16,   0,   1,   0, 
       0,   0,   1,  64,   0,   0, 
     205, 204,  76,  61,  10,   0, 
      16,   0,   4,   0,   0,   0, 
@@ -10583,9 +10583,9 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_4_D3D11[] =
       0,   0,  58,   0,  16,   0, 
       4,   0,   0,   0,  56,   0, 
       0,   7, 194,   0,  16,   0, 
-      4,   0,   0,   0,   6,   4, 
+      4,   0,   0,   0,  86,   9, 
      16,   0,   1,   0,   0,   0, 
-    246,  15,  16,   0,   1,   0, 
+      6,   0,  16,   0,   1,   0, 
       0,   0,  64,   0,   0,   5, 
     194,   0,  16,   0,   4,   0, 
       0,   0, 166,  14,  16,   0, 
@@ -10656,14 +10656,14 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_4_D3D11[] =
      26,   0,  16,   0,   4,   0, 
       0,   0,  56,   0,   0,  10, 
     194,   0,  16,   0,   4,   0, 
-      0,   0,   6,   4,  16,   0, 
+      0,   0,  86,   9,  16,   0, 
       1,   0,   0,   0,   2,  64, 
       0,   0,   0,   0,   0,   0, 
       0,   0,   0,   0, 243,   4, 
      53,  63, 243,   4,  53,  63, 
      50,   0,   0,  10,  18,   0, 
      16,   0,   5,   0,   0,   0, 
-     10,   0,  16,   0,   1,   0, 
+     26,   0,  16,   0,   1,   0, 
       0,   0,   1,  64,   0,   0, 
     243,   4,  53,  63,  58,   0, 
      16, 128,  65,   0,   0,   0, 
@@ -10674,7 +10674,7 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_4_D3D11[] =
      58,   0,  16,   0,   4,   0, 
       0,   0,  56,   0,   0,   7, 
     194,   0,  16,   0,   5,   0, 
-      0,   0, 166,  10,  16,   0, 
+      0,   0, 246,  15,  16,   0, 
       1,   0,   0,   0,   6,   4, 
      16,   0,   5,   0,   0,   0, 
      64,   0,   0,   5, 194,   0, 
@@ -10897,7 +10897,7 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_4_D3D11[] =
      16,   0,   3,   0,   0,   0, 
      56,   0,   0,   7,  50,   0, 
      16,   0,   5,   0,   0,   0, 
-    246,  15,  16,   0,   1,   0, 
+      6,   0,  16,   0,   1,   0, 
       0,   0,  70,   0,  16,   0, 
       5,   0,   0,   0,  64,   0, 
       0,   5,  50,   0,  16,   0, 
@@ -10969,20 +10969,20 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_4_D3D11[] =
       0,   0,  26,   0,  16,   0, 
       3,   0,   0,   0,  50,   0, 
       0,  10,  18,   0,  16,   0, 
-      5,   0,   0,   0,  10,   0, 
+      5,   0,   0,   0,  26,   0, 
      16,   0,   1,   0,   0,   0, 
       1,  64,   0,   0,  46, 189, 
-     59, 179,  26,   0,  16, 128, 
+     59, 179,  42,   0,  16, 128, 
      65,   0,   0,   0,   1,   0, 
       0,   0,  50,   0,   0,   9, 
      34,   0,  16,   0,   5,   0, 
-      0,   0,  26,   0,  16,   0, 
+      0,   0,  42,   0,  16,   0, 
       1,   0,   0,   0,   1,  64, 
       0,   0,  46, 189,  59, 179, 
-     10,   0,  16,   0,   1,   0, 
+     26,   0,  16,   0,   1,   0, 
       0,   0,  56,   0,   0,   7, 
     194,   0,  16,   0,   5,   0, 
-      0,   0, 166,  10,  16,   0, 
+      0,   0, 246,  15,  16,   0, 
       1,   0,   0,   0,   6,   4, 
      16,   0,   5,   0,   0,   0, 
      64,   0,   0,   5, 194,   0, 
@@ -11200,7 +11200,7 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_4_D3D11[] =
      26,   0,  16,   0,   3,   0, 
       0,   0,  56,   0,   0,   7, 
      50,   0,  16,   0,   5,   0, 
-      0,   0, 246,  15,  16,   0, 
+      0,   0,   6,   0,  16,   0, 
       1,   0,   0,   0,  70,   0, 
      16,   0,   5,   0,   0,   0, 
      64,   0,   0,   5,  50,   0, 
@@ -11273,19 +11273,19 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_4_D3D11[] =
      16,   0,   3,   0,   0,   0, 
      50,   0,   0,  10,  18,   0, 
      16,   0,   5,   0,   0,   0, 
-     10,   0,  16,   0,   1,   0, 
+     26,   0,  16,   0,   1,   0, 
       0,   0,   1,  64,   0,   0, 
     243,   4,  53, 191,  58,   0, 
      16, 128,  65,   0,   0,   0, 
       4,   0,   0,   0,  50,   0, 
       0,   9,  34,   0,  16,   0, 
-      5,   0,   0,   0,  26,   0, 
+      5,   0,   0,   0,  42,   0, 
      16,   0,   1,   0,   0,   0, 
       1,  64,   0,   0, 243,   4, 
      53, 191,  42,   0,  16,   0, 
       4,   0,   0,   0,  56,   0, 
       0,   7,  98,   0,  16,   0, 
-      4,   0,   0,   0, 166,  10, 
+      4,   0,   0,   0, 246,  15, 
      16,   0,   1,   0,   0,   0, 
       6,   1,  16,   0,   5,   0, 
       0,   0,  64,   0,   0,   5, 
@@ -11503,7 +11503,7 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_4_D3D11[] =
       0,   0,  26,   0,  16,   0, 
       3,   0,   0,   0,  56,   0, 
       0,   7,  98,   0,  16,   0, 
-      4,   0,   0,   0, 246,  15, 
+      4,   0,   0,   0,   6,   0, 
      16,   0,   1,   0,   0,   0, 
       6,   1,  16,   0,   5,   0, 
       0,   0,  64,   0,   0,   5, 
@@ -11576,21 +11576,21 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_4_D3D11[] =
      26,   0,  16,   0,   3,   0, 
       0,   0,  50,   0,   0,  11, 
      18,   0,  16,   0,   5,   0, 
-      0,   0,  26,   0,  16, 128, 
+      0,   0,  42,   0,  16, 128, 
      65,   0,   0,   0,   1,   0, 
       0,   0,   1,  64,   0,   0, 
-     46, 189, 187, 179,  10,   0, 
+     46, 189, 187, 179,  26,   0, 
      16, 128,  65,   0,   0,   0, 
       1,   0,   0,   0,  50,   0, 
       0,  10,  34,   0,  16,   0, 
-      5,   0,   0,   0,  10,   0, 
+      5,   0,   0,   0,  26,   0, 
      16,   0,   1,   0,   0,   0, 
       1,  64,   0,   0,  46, 189, 
-    187, 179,  26,   0,  16, 128, 
+    187, 179,  42,   0,  16, 128, 
      65,   0,   0,   0,   1,   0, 
       0,   0,  56,   0,   0,   7, 
      98,   0,  16,   0,   4,   0, 
-      0,   0, 166,  10,  16,   0, 
+      0,   0, 246,  15,  16,   0, 
       1,   0,   0,   0,   6,   1, 
      16,   0,   5,   0,   0,   0, 
      64,   0,   0,   5,  98,   0, 
@@ -11808,7 +11808,7 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_4_D3D11[] =
      26,   0,  16,   0,   3,   0, 
       0,   0,  56,   0,   0,   7, 
      98,   0,  16,   0,   4,   0, 
-      0,   0, 246,  15,  16,   0, 
+      0,   0,   6,   0,  16,   0, 
       1,   0,   0,   0,   6,   1, 
      16,   0,   5,   0,   0,   0, 
      64,   0,   0,   5,  98,   0, 
@@ -11881,25 +11881,25 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_4_D3D11[] =
      16,   0,   3,   0,   0,   0, 
      56,   0,   0,   7,  34,   0, 
      16,   0,   4,   0,   0,   0, 
-     26,   0,  16,   0,   1,   0, 
+     42,   0,  16,   0,   1,   0, 
       0,   0,   1,  64,   0,   0, 
     245,   4,  53, 191,  50,   0, 
       0,  10,  18,   0,  16,   0, 
-      5,   0,   0,   0,  10,   0, 
+      5,   0,   0,   0,  26,   0, 
      16,   0,   1,   0,   0,   0, 
       1,  64,   0,   0, 241,   4, 
      53, 191,  26,   0,  16, 128, 
      65,   0,   0,   0,   4,   0, 
       0,   0,  15,   0,   0,  10, 
      34,   0,  16,   0,   5,   0, 
-      0,   0,  22,   5,  16,   0, 
+      0,   0, 102,  10,  16,   0, 
       1,   0,   0,   0,   2,  64, 
       0,   0, 241,   4,  53, 191, 
     245,   4,  53, 191,   0,   0, 
       0,   0,   0,   0,   0,   0, 
      56,   0,   0,   7,  98,   0, 
      16,   0,   4,   0,   0,   0, 
-    166,  10,  16,   0,   1,   0, 
+    246,  15,  16,   0,   1,   0, 
       0,   0,   6,   1,  16,   0, 
       5,   0,   0,   0,  64,   0, 
       0,   5,  98,   0,  16,   0, 
@@ -12117,7 +12117,7 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_4_D3D11[] =
      16,   0,   3,   0,   0,   0, 
      56,   0,   0,   7,  98,   0, 
      16,   0,   4,   0,   0,   0, 
-    246,  15,  16,   0,   1,   0, 
+      6,   0,  16,   0,   1,   0, 
       0,   0,   6,   1,  16,   0, 
       5,   0,   0,   0,  64,   0, 
       0,   5,  98,   0,  16,   0, 
@@ -12189,20 +12189,20 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_4_D3D11[] =
       0,   0,  26,   0,  16,   0, 
       3,   0,   0,   0,  50,   0, 
       0,   9,  18,   0,  16,   0, 
-      5,   0,   0,   0,  10,   0, 
-     16,   0,   1,   0,   0,   0, 
-      1,  64,   0,   0,  46, 222, 
-     76,  50,  26,   0,  16,   0, 
-      1,   0,   0,   0,  50,   0, 
-      0,  10,  34,   0,  16,   0, 
       5,   0,   0,   0,  26,   0, 
      16,   0,   1,   0,   0,   0, 
       1,  64,   0,   0,  46, 222, 
-     76,  50,  10,   0,  16, 128, 
+     76,  50,  42,   0,  16,   0, 
+      1,   0,   0,   0,  50,   0, 
+      0,  10,  34,   0,  16,   0, 
+      5,   0,   0,   0,  42,   0, 
+     16,   0,   1,   0,   0,   0, 
+      1,  64,   0,   0,  46, 222, 
+     76,  50,  26,   0,  16, 128, 
      65,   0,   0,   0,   1,   0, 
       0,   0,  56,   0,   0,   7, 
      98,   0,  16,   0,   4,   0, 
-      0,   0, 166,  10,  16,   0, 
+      0,   0, 246,  15,  16,   0, 
       1,   0,   0,   0,   6,   1, 
      16,   0,   5,   0,   0,   0, 
      64,   0,   0,   5,  98,   0, 
@@ -12420,7 +12420,7 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_4_D3D11[] =
      26,   0,  16,   0,   3,   0, 
       0,   0,  56,   0,   0,   7, 
      98,   0,  16,   0,   4,   0, 
-      0,   0, 246,  15,  16,   0, 
+      0,   0,   6,   0,  16,   0, 
       1,   0,   0,   0,   6,   1, 
      16,   0,   5,   0,   0,   0, 
      64,   0,   0,   5,  98,   0, 
@@ -12493,165 +12493,165 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_4_D3D11[] =
      16,   0,   3,   0,   0,   0, 
      56,   0,   0,   7,  34,   0, 
      16,   0,   4,   0,   0,   0, 
-     26,   0,  16,   0,   1,   0, 
+     42,   0,  16,   0,   1,   0, 
       0,   0,   1,  64,   0,   0, 
     239,   4,  53, 191,  50,   0, 
       0,  10,  18,   0,  16,   0, 
-      5,   0,   0,   0,  10,   0, 
+      5,   0,   0,   0,  26,   0, 
      16,   0,   1,   0,   0,   0, 
       1,  64,   0,   0, 247,   4, 
      53,  63,  26,   0,  16, 128, 
      65,   0,   0,   0,   4,   0, 
       0,   0,  15,   0,   0,  10, 
      34,   0,  16,   0,   5,   0, 
-      0,   0,  22,   5,  16,   0, 
+      0,   0, 102,  10,  16,   0, 
       1,   0,   0,   0,   2,  64, 
       0,   0, 247,   4,  53,  63, 
     239,   4,  53, 191,   0,   0, 
       0,   0,   0,   0,   0,   0, 
-     56,   0,   0,   7,  50,   0, 
+     56,   0,   0,   7,  98,   0, 
      16,   0,   1,   0,   0,   0, 
-    166,  10,  16,   0,   1,   0, 
-      0,   0,  70,   0,  16,   0, 
+    246,  15,  16,   0,   1,   0, 
+      0,   0,   6,   1,  16,   0, 
       5,   0,   0,   0,  64,   0, 
-      0,   5,  50,   0,  16,   0, 
-      1,   0,   0,   0,  70,   0, 
+      0,   5,  98,   0,  16,   0, 
+      1,   0,   0,   0,  86,   6, 
      16,   0,   1,   0,   0,   0, 
-     50,   0,   0,   9,  50,   0, 
+     50,   0,   0,   9,  98,   0, 
      16,   0,   1,   0,   0,   0, 
-     70,   0,  16,   0,   1,   0, 
-      0,   0, 230,  10,  16,   0, 
-      3,   0,   0,   0,  70,  16, 
+     86,   6,  16,   0,   1,   0, 
+      0,   0, 166,  11,  16,   0, 
+      3,   0,   0,   0,   6,  17, 
      16,   0,   1,   0,   0,   0, 
      72,   0,   0, 141, 194,   0, 
       0, 128,  67,  85,  21,   0, 
     130,   0,  16,   0,   4,   0, 
-      0,   0,  70,   0,  16,   0, 
+      0,   0, 150,   5,  16,   0, 
       1,   0,   0,   0, 118, 114, 
      16,   0,   0,   0,   0,   0, 
       0,  96,  16,   0,   0,   0, 
       0,   0,   1,  64,   0,   0, 
       0,   0,   0,   0,  50,   0, 
-      0,  11,  50,   0,  16,   0, 
-      1,   0,   0,   0,  70, 128, 
+      0,  11,  98,   0,  16,   0, 
+      1,   0,   0,   0,   6, 129, 
      32,   0,   0,   0,   0,   0, 
-      2,   0,   0,   0,  70,   0, 
+      2,   0,   0,   0,  86,   6, 
      16,   0,   1,   0,   0,   0, 
-    230, 138,  32,   0,   0,   0, 
+    166, 139,  32,   0,   0,   0, 
       0,   0,   2,   0,   0,   0, 
      56,   0,   0,   7,  98,   0, 
      16,   0,   4,   0,   0,   0, 
     246,  15,  16,   0,   4,   0, 
-      0,   0,   6,   1,  16,   0, 
+      0,   0,  86,   6,  16,   0, 
       1,   0,   0,   0,   0,   0, 
-      0,   8, 114,   0,  16,   0, 
-      1,   0,   0,   0, 150,   7, 
+      0,   8, 226,   0,  16,   0, 
+      1,   0,   0,   0,  86,  14, 
      16, 128,  65,   0,   0,   0, 
-      0,   0,   0,   0, 150,   7, 
+      0,   0,   0,   0,  86,  14, 
      16,   0,   4,   0,   0,   0, 
      16,   0,   0,   7,  34,   0, 
      16,   0,   4,   0,   0,   0, 
-     70,   2,  16,   0,   1,   0, 
-      0,   0,  70,   2,  16,   0, 
+    150,   7,  16,   0,   1,   0, 
+      0,   0, 150,   7,  16,   0, 
       1,   0,   0,   0,  16,   0, 
-      0,   7,  18,   0,  16,   0, 
+      0,   7,  34,   0,  16,   0, 
       1,   0,   0,   0, 150,   7, 
      16,   0,   2,   0,   0,   0, 
-     70,   2,  16,   0,   1,   0, 
+    150,   7,  16,   0,   1,   0, 
       0,   0,  68,   0,   0,   5, 
-     34,   0,  16,   0,   1,   0, 
+     66,   0,  16,   0,   1,   0, 
       0,   0,  26,   0,  16,   0, 
       4,   0,   0,   0,  50,  32, 
-      0,  11,  18,   0,  16,   0, 
-      1,   0,   0,   0,  10,   0, 
+      0,  11,  34,   0,  16,   0, 
+      1,   0,   0,   0,  26,   0, 
      16,   0,   1,   0,   0,   0, 
-     26,   0,  16,   0,   1,   0, 
+     42,   0,  16,   0,   1,   0, 
       0,   0,  58, 128,  32, 128, 
      65,   0,   0,   0,   0,   0, 
       0,   0,   3,   0,   0,   0, 
-     50,  32,   0,  10,  34,   0, 
+     50,  32,   0,  10,  66,   0, 
      16,   0,   1,   0,   0,   0, 
      26,   0,  16,   0,   4,   0, 
       0,   0,  42, 128,  32,   0, 
       0,   0,   0,   0,   3,   0, 
       0,   0,   1,  64,   0,   0, 
       0,   0, 128,  63,  50,   0, 
-      0,   9,  18,   0,  16,   0, 
-      1,   0,   0,   0,  10,   0, 
+      0,   9,  34,   0,  16,   0, 
+      1,   0,   0,   0,  26,   0, 
      16,   0,   1,   0,   0,   0, 
-     26,   0,  16,   0,   1,   0, 
+     42,   0,  16,   0,   1,   0, 
       0,   0,  10,   0,  16,   0, 
       3,   0,   0,   0,  56,   0, 
-      0,   7,  98,   0,  16,   0, 
+      0,   7, 194,   0,  16,   0, 
       1,   0,   0,   0,   6,   0, 
      16,   0,   2,   0,   0,   0, 
-      6,   1,  16,   0,   5,   0, 
+      6,   4,  16,   0,   5,   0, 
       0,   0,  64,   0,   0,   5, 
-     98,   0,  16,   0,   1,   0, 
-      0,   0,  86,   6,  16,   0, 
+    194,   0,  16,   0,   1,   0, 
+      0,   0, 166,  14,  16,   0, 
       1,   0,   0,   0,  50,   0, 
-      0,   9,  98,   0,  16,   0, 
-      1,   0,   0,   0,  86,   6, 
+      0,   9, 194,   0,  16,   0, 
+      1,   0,   0,   0, 166,  14, 
      16,   0,   1,   0,   0,   0, 
-    166,  11,  16,   0,   3,   0, 
-      0,   0,   6,  17,  16,   0, 
+    166,  14,  16,   0,   3,   0, 
+      0,   0,   6,  20,  16,   0, 
       1,   0,   0,   0,  72,   0, 
       0, 141, 194,   0,   0, 128, 
      67,  85,  21,   0, 130,   0, 
      16,   0,   4,   0,   0,   0, 
-    150,   5,  16,   0,   1,   0, 
+    230,  10,  16,   0,   1,   0, 
       0,   0, 118, 114,  16,   0, 
       0,   0,   0,   0,   0,  96, 
      16,   0,   0,   0,   0,   0, 
       1,  64,   0,   0,   0,   0, 
       0,   0,  50,   0,   0,  11, 
-     98,   0,  16,   0,   1,   0, 
-      0,   0,   6, 129,  32,   0, 
+    194,   0,  16,   0,   1,   0, 
+      0,   0,   6, 132,  32,   0, 
       0,   0,   0,   0,   2,   0, 
-      0,   0,  86,   6,  16,   0, 
-      1,   0,   0,   0, 166, 139, 
+      0,   0, 166,  14,  16,   0, 
+      1,   0,   0,   0, 166, 142, 
      32,   0,   0,   0,   0,   0, 
       2,   0,   0,   0,  56,   0, 
       0,   7,  98,   0,  16,   0, 
       4,   0,   0,   0, 246,  15, 
      16,   0,   4,   0,   0,   0, 
-     86,   6,  16,   0,   1,   0, 
+    166,  11,  16,   0,   1,   0, 
       0,   0,   0,   0,   0,   8, 
     226,   0,  16,   0,   4,   0, 
       0,   0,  86,  14,  16, 128, 
      65,   0,   0,   0,   0,   0, 
       0,   0,  86,  14,  16,   0, 
       4,   0,   0,   0,  16,   0, 
-      0,   7,  34,   0,  16,   0, 
+      0,   7,  66,   0,  16,   0, 
       1,   0,   0,   0, 150,   7, 
      16,   0,   4,   0,   0,   0, 
     150,   7,  16,   0,   4,   0, 
       0,   0,  16,   0,   0,   7, 
-     66,   0,  16,   0,   1,   0, 
+    130,   0,  16,   0,   1,   0, 
       0,   0, 150,   7,  16,   0, 
       2,   0,   0,   0, 150,   7, 
      16,   0,   4,   0,   0,   0, 
      68,   0,   0,   5,  18,   0, 
      16,   0,   2,   0,   0,   0, 
-     26,   0,  16,   0,   1,   0, 
+     42,   0,  16,   0,   1,   0, 
       0,   0,  50,  32,   0,  11, 
-     66,   0,  16,   0,   1,   0, 
-      0,   0,  42,   0,  16,   0, 
+    130,   0,  16,   0,   1,   0, 
+      0,   0,  58,   0,  16,   0, 
       1,   0,   0,   0,  10,   0, 
      16,   0,   2,   0,   0,   0, 
      58, 128,  32, 128,  65,   0, 
       0,   0,   0,   0,   0,   0, 
       3,   0,   0,   0,  50,  32, 
-      0,  10,  34,   0,  16,   0, 
-      1,   0,   0,   0,  26,   0, 
+      0,  10,  66,   0,  16,   0, 
+      1,   0,   0,   0,  42,   0, 
      16,   0,   1,   0,   0,   0, 
      42, 128,  32,   0,   0,   0, 
       0,   0,   3,   0,   0,   0, 
       1,  64,   0,   0,   0,   0, 
     128,  63,  50,   0,   0,   9, 
-     34,   0,  16,   0,   1,   0, 
-      0,   0,  42,   0,  16,   0, 
-      1,   0,   0,   0,  26,   0, 
+     66,   0,  16,   0,   1,   0, 
+      0,   0,  58,   0,  16,   0, 
+      1,   0,   0,   0,  42,   0, 
      16,   0,   1,   0,   0,   0, 
      26,   0,  16,   0,   3,   0, 
       0,   0,  56,   0,   0,   7, 
@@ -12695,7 +12695,7 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_4_D3D11[] =
       0,   0,   0,   0,   0,   0, 
      70,   2,  16,   0,   4,   0, 
       0,   0,  16,   0,   0,   7, 
-     66,   0,  16,   0,   1,   0, 
+    130,   0,  16,   0,   1,   0, 
       0,   0,  70,   2,  16,   0, 
       4,   0,   0,   0,  70,   2, 
      16,   0,   4,   0,   0,   0, 
@@ -12705,7 +12705,7 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_4_D3D11[] =
       0,   0,  70,   2,  16,   0, 
       4,   0,   0,   0,  68,   0, 
       0,   5,  18,   0,  16,   0, 
-      3,   0,   0,   0,  42,   0, 
+      3,   0,   0,   0,  58,   0, 
      16,   0,   1,   0,   0,   0, 
      50,  32,   0,  11,  18,   0, 
      16,   0,   2,   0,   0,   0, 
@@ -12715,52 +12715,52 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_4_D3D11[] =
      32, 128,  65,   0,   0,   0, 
       0,   0,   0,   0,   3,   0, 
       0,   0,  50,  32,   0,  10, 
-     66,   0,  16,   0,   1,   0, 
-      0,   0,  42,   0,  16,   0, 
+    130,   0,  16,   0,   1,   0, 
+      0,   0,  58,   0,  16,   0, 
       1,   0,   0,   0,  42, 128, 
      32,   0,   0,   0,   0,   0, 
       3,   0,   0,   0,   1,  64, 
       0,   0,   0,   0, 128,  63, 
-     50,   0,   0,   9,  34,   0, 
+     50,   0,   0,   9,  66,   0, 
      16,   0,   1,   0,   0,   0, 
      10,   0,  16,   0,   2,   0, 
-      0,   0,  42,   0,  16,   0, 
-      1,   0,   0,   0,  26,   0, 
+      0,   0,  58,   0,  16,   0, 
+      1,   0,   0,   0,  42,   0, 
      16,   0,   1,   0,   0,   0, 
-     56,   0,   0,   7, 194,   0, 
+     56,   0,   0,   7, 146,   0, 
      16,   0,   1,   0,   0,   0, 
-    246,  15,  16,   0,   1,   0, 
+      6,   0,  16,   0,   1,   0, 
       0,   0,   6,   4,  16,   0, 
       5,   0,   0,   0,  64,   0, 
-      0,   5, 194,   0,  16,   0, 
-      1,   0,   0,   0, 166,  14, 
+      0,   5, 146,   0,  16,   0, 
+      1,   0,   0,   0,   6,  12, 
      16,   0,   1,   0,   0,   0, 
-     50,   0,   0,   9, 194,   0, 
+     50,   0,   0,   9, 146,   0, 
      16,   0,   1,   0,   0,   0, 
-    166,  14,  16,   0,   1,   0, 
+      6,  12,  16,   0,   1,   0, 
       0,   0, 166,  14,  16,   0, 
       3,   0,   0,   0,   6,  20, 
      16,   0,   1,   0,   0,   0, 
      72,   0,   0, 141, 194,   0, 
       0, 128,  67,  85,  21,   0, 
      66,   0,  16,   0,   3,   0, 
-      0,   0, 230,  10,  16,   0, 
+      0,   0, 198,   0,  16,   0, 
       1,   0,   0,   0, 150, 124, 
      16,   0,   0,   0,   0,   0, 
       0,  96,  16,   0,   0,   0, 
       0,   0,   1,  64,   0,   0, 
       0,   0,   0,   0,  50,   0, 
-      0,  11, 194,   0,  16,   0, 
+      0,  11, 146,   0,  16,   0, 
       1,   0,   0,   0,   6, 132, 
      32,   0,   0,   0,   0,   0, 
-      2,   0,   0,   0, 166,  14, 
+      2,   0,   0,   0,   6,  12, 
      16,   0,   1,   0,   0,   0, 
     166, 142,  32,   0,   0,   0, 
       0,   0,   2,   0,   0,   0, 
      56,   0,   0,   7,  50,   0, 
      16,   0,   3,   0,   0,   0, 
     166,  10,  16,   0,   3,   0, 
-      0,   0, 230,  10,  16,   0, 
+      0,   0, 198,   0,  16,   0, 
       1,   0,   0,   0,   0,   0, 
       0,   8, 114,   0,  16,   0, 
       3,   0,   0,   0, 150,   7, 
@@ -12777,13 +12777,13 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_4_D3D11[] =
      16,   0,   2,   0,   0,   0, 
      70,   2,  16,   0,   3,   0, 
       0,   0,  68,   0,   0,   5, 
-     66,   0,  16,   0,   1,   0, 
+     18,   0,  16,   0,   1,   0, 
       0,   0,  26,   0,  16,   0, 
       0,   0,   0,   0,  50,  32, 
       0,  11,  66,   0,  16,   0, 
       0,   0,   0,   0,  42,   0, 
      16,   0,   0,   0,   0,   0, 
-     42,   0,  16,   0,   1,   0, 
+     10,   0,  16,   0,   1,   0, 
       0,   0,  58, 128,  32, 128, 
      65,   0,   0,   0,   0,   0, 
       0,   0,   3,   0,   0,   0, 
@@ -12798,7 +12798,7 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_4_D3D11[] =
       0,   0,   0,   0,  42,   0, 
      16,   0,   0,   0,   0,   0, 
      26,   0,  16,   0,   0,   0, 
-      0,   0,  26,   0,  16,   0, 
+      0,   0,  42,   0,  16,   0, 
       1,   0,   0,   0,  56,   0, 
       0,   8,  34,   0,  16,   0, 
       0,   0,   0,   0,  26,   0, 
@@ -12807,7 +12807,7 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_4_D3D11[] =
       0,   0,   4,   0,   0,   0, 
      50,   0,   0,  10,  34,   0, 
      16,   0,   0,   0,   0,   0, 
-     10,   0,  16,   0,   1,   0, 
+     26,   0,  16,   0,   1,   0, 
       0,   0,  10, 128,  32,   0, 
       0,   0,   0,   0,   4,   0, 
       0,   0,  26,   0,  16,   0, 
@@ -12845,7 +12845,7 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_4_D3D11[] =
 //
 ps_5_0
 dcl_globalFlags refactoringAllowed
-dcl_constantbuffer cb0[5], immediateIndexed
+dcl_constantbuffer CB0[5], immediateIndexed
 dcl_sampler s0, mode_default
 dcl_sampler s1, mode_default
 dcl_resource_texture2d (float,float,float,float) t0
@@ -12855,18 +12855,18 @@ dcl_input_ps linear v1.xy
 dcl_output o0.xy
 dcl_temps 8
 sample_l_indexable(texture2d)(float,float,float,float) r0.w, v1.xyxx, t0.yzwx, s0, l(0.000000)
-mul r1.xy, v0.xyxx, l(0.250000, 0.250000, 0.000000, 0.000000)
-sample_indexable(texture2d)(float,float,float,float) r1.xyz, r1.xyxx, t1.xyzw, s1
-div r1.w, cb0[3].x, r0.w
-lt r2.x, r1.w, l(1.000000)
-if_nz r2.x
+div r1.x, cb0[3].x, r0.w
+lt r1.y, r1.x, l(1.000000)
+if_nz r1.y
   mov o0.x, l(1.000000)
   mov o0.y, r0.w
   ret 
 endif 
-mad r2.xy, cb0[2].xyxx, v1.xyxx, cb0[2].zwzz
-mul r0.yz, r0.wwww, r2.xxyx
-mul r2.x, r1.w, l(0.027778)
+mad r1.yz, cb0[2].xxyx, v1.xxyx, cb0[2].zzwz
+mul r0.yz, r0.wwww, r1.yyzy
+mul r1.yz, v0.xxyx, l(0.000000, 0.250000, 0.250000, 0.000000)
+sample_indexable(texture2d)(float,float,float,float) r1.yzw, r1.yzyy, t1.wxyz, s1
+mul r2.x, r1.x, l(0.027778)
 mov r2.y, cb0[1].z
 mov r2.z, l(0)
 add r2.yz, r2.yyzy, v1.xxyx
@@ -12908,41 +12908,41 @@ mad r2.yzw, r2.wwyz, r3.yyzx, -r4.xxyz
 dp3 r3.x, r2.yzwy, r2.yzwy
 rsq r3.x, r3.x
 mul r2.yzw, r2.yyzw, r3.xxxx
-mad r1.z, r1.z, r2.x, l(1.000000)
-mul r3.xy, r1.xyxx, r1.zzzz
+mad r1.w, r1.w, r2.x, l(1.000000)
+mul r3.xy, r1.yzyy, r1.wwww
 round_ne r3.xy, r3.xyxx
 mul r3.zw, cb0[1].zzzw, l(0.000000, 0.000000, 4.000000, 4.000000)
 mad r3.xy, r3.xyxx, r3.zwzz, v1.xyxx
 sample_l_indexable(texture2d)(float,float,float,float) r4.z, r3.xyxx, t0.yzxw, s0, l(0.000000)
 mad r3.xy, cb0[2].xyxx, r3.xyxx, cb0[2].zwzz
 mul r4.xy, r4.zzzz, r3.xyxx
-mad r2.x, r1.w, l(0.027778), r1.z
+mad r2.x, r1.x, l(0.027778), r1.w
 add r4.xyz, -r0.yzwy, r4.xyzx
 dp3 r3.x, r4.xyzx, r4.xyzx
 dp3 r3.y, r2.yzwy, r4.xyzx
 rsq r4.x, r3.x
 mad_sat r3.y, r3.y, r4.x, -cb0[3].w
 mad_sat r3.x, r3.x, cb0[3].z, l(1.000000)
-mul r4.xy, r1.xyxx, r2.xxxx
+mul r4.xy, r1.yzyy, r2.xxxx
 round_ne r4.xy, r4.xyxx
 mad r4.xy, r4.xyxx, r3.zwzz, v1.xyxx
 sample_l_indexable(texture2d)(float,float,float,float) r5.z, r4.xyxx, t0.yzxw, s0, l(0.000000)
 mad r4.xy, cb0[2].xyxx, r4.xyxx, cb0[2].zwzz
 mul r5.xy, r5.zzzz, r4.xyxx
-mad r4.x, r1.w, l(0.027778), r2.x
+mad r4.x, r1.x, l(0.027778), r2.x
 add r4.yzw, -r0.yyzw, r5.xxyz
 dp3 r5.x, r4.yzwy, r4.yzwy
 dp3 r4.y, r2.yzwy, r4.yzwy
 rsq r4.z, r5.x
 mad_sat r4.y, r4.y, r4.z, -cb0[3].w
 mad_sat r4.z, r5.x, cb0[3].z, l(1.000000)
-mul r5.xy, r1.xyxx, r4.xxxx
+mul r5.xy, r1.yzyy, r4.xxxx
 round_ne r5.xy, r5.xyxx
 mad r5.xy, r5.xyxx, r3.zwzz, v1.xyxx
 sample_l_indexable(texture2d)(float,float,float,float) r6.z, r5.xyxx, t0.yzxw, s0, l(0.000000)
 mad r5.xy, cb0[2].xyxx, r5.xyxx, cb0[2].zwzz
 mul r6.xy, r6.zzzz, r5.xyxx
-mad r4.w, r1.w, l(0.027778), r4.x
+mad r4.w, r1.x, l(0.027778), r4.x
 add r5.xyz, -r0.yzwy, r6.xyzx
 dp3 r5.w, r5.xyzx, r5.xyzx
 dp3 r5.x, r2.yzwy, r5.xyzx
@@ -12951,13 +12951,13 @@ mad_sat r5.x, r5.x, r5.y, -cb0[3].w
 mad_sat r5.y, r5.w, cb0[3].z, l(1.000000)
 mul r5.x, r5.y, r5.x
 mad r4.y, r4.y, r4.z, r5.x
-mul r5.xy, r1.xyxx, r4.wwww
+mul r5.xy, r1.yzyy, r4.wwww
 round_ne r5.xy, r5.xyxx
 mad r5.xy, r5.xyxx, r3.zwzz, v1.xyxx
 sample_l_indexable(texture2d)(float,float,float,float) r6.z, r5.xyxx, t0.yzxw, s0, l(0.000000)
 mad r5.xy, cb0[2].xyxx, r5.xyxx, cb0[2].zwzz
 mul r6.xy, r6.zzzz, r5.xyxx
-mad r4.z, r1.w, l(0.027778), r4.w
+mad r4.z, r1.x, l(0.027778), r4.w
 add r5.xyz, -r0.yzwy, r6.xyzx
 dp3 r5.w, r5.xyzx, r5.xyzx
 dp3 r5.x, r2.yzwy, r5.xyzx
@@ -12965,13 +12965,13 @@ rsq r5.y, r5.w
 mad_sat r5.x, r5.x, r5.y, -cb0[3].w
 mad_sat r5.y, r5.w, cb0[3].z, l(1.000000)
 mad r4.y, r5.x, r5.y, r4.y
-mul r5.xy, r1.xyxx, r4.zzzz
+mul r5.xy, r1.yzyy, r4.zzzz
 round_ne r5.xy, r5.xyxx
 mad r5.xy, r5.xyxx, r3.zwzz, v1.xyxx
 sample_l_indexable(texture2d)(float,float,float,float) r6.z, r5.xyxx, t0.yzxw, s0, l(0.000000)
 mad r5.xy, cb0[2].xyxx, r5.xyxx, cb0[2].zwzz
 mul r6.xy, r6.zzzz, r5.xyxx
-mad r5.x, r1.w, l(0.027778), r4.z
+mad r5.x, r1.x, l(0.027778), r4.z
 add r5.yzw, -r0.yyzw, r6.xxyz
 dp3 r6.x, r5.yzwy, r5.yzwy
 dp3 r5.y, r2.yzwy, r5.yzwy
@@ -12979,13 +12979,13 @@ rsq r5.z, r6.x
 mad_sat r5.y, r5.y, r5.z, -cb0[3].w
 mad_sat r5.z, r6.x, cb0[3].z, l(1.000000)
 mad r4.y, r5.y, r5.z, r4.y
-mul r5.yz, r1.xxyx, r5.xxxx
+mul r5.yz, r1.yyzy, r5.xxxx
 round_ne r5.yz, r5.yyzy
 mad r5.yz, r5.yyzy, r3.zzwz, v1.xxyx
 sample_l_indexable(texture2d)(float,float,float,float) r6.z, r5.yzyy, t0.yzxw, s0, l(0.000000)
 mad r5.yz, cb0[2].xxyx, r5.yyzy, cb0[2].zzwz
 mul r6.xy, r6.zzzz, r5.yzyy
-mad r5.y, r1.w, l(0.027778), r5.x
+mad r5.y, r1.x, l(0.027778), r5.x
 add r6.xyz, -r0.yzwy, r6.xyzx
 dp3 r5.z, r6.xyzx, r6.xyzx
 dp3 r5.w, r2.yzwy, r6.xyzx
@@ -12993,13 +12993,13 @@ rsq r6.x, r5.z
 mad_sat r5.w, r5.w, r6.x, -cb0[3].w
 mad_sat r5.z, r5.z, cb0[3].z, l(1.000000)
 mad r4.y, r5.w, r5.z, r4.y
-mul r5.zw, r1.xxxy, r5.yyyy
+mul r5.zw, r1.yyyz, r5.yyyy
 round_ne r5.zw, r5.zzzw
 mad r5.zw, r5.zzzw, r3.zzzw, v1.xxxy
 sample_l_indexable(texture2d)(float,float,float,float) r6.z, r5.zwzz, t0.yzxw, s0, l(0.000000)
 mad r5.zw, cb0[2].xxxy, r5.zzzw, cb0[2].zzzw
 mul r6.xy, r6.zzzz, r5.zwzz
-mad r1.w, r1.w, l(0.027778), r5.y
+mad r1.x, r1.x, l(0.027778), r5.y
 add r6.xyz, -r0.yzwy, r6.xyzx
 dp3 r5.z, r6.xyzx, r6.xyzx
 dp3 r5.w, r2.yzwy, r6.xyzx
@@ -13007,7 +13007,7 @@ rsq r6.x, r5.z
 mad_sat r5.w, r5.w, r6.x, -cb0[3].w
 mad_sat r5.z, r5.z, cb0[3].z, l(1.000000)
 mad r4.y, r5.w, r5.z, r4.y
-mul r5.zw, r1.xxxy, r1.wwww
+mul r5.zw, r1.yyyz, r1.xxxx
 round_ne r5.zw, r5.zzzw
 mad r5.zw, r5.zzzw, r3.zzzw, v1.xxxy
 sample_l_indexable(texture2d)(float,float,float,float) r6.z, r5.zwzz, t0.yzxw, s0, l(0.000000)
@@ -13020,10 +13020,10 @@ rsq r6.x, r5.z
 mad_sat r5.w, r5.w, r6.x, -cb0[3].w
 mad_sat r5.z, r5.z, cb0[3].z, l(1.000000)
 mad r4.y, r5.w, r5.z, r4.y
-mul r5.zw, r1.xxxy, l(0.000000, 0.000000, 0.707107, 0.707107)
-mad r6.x, r1.x, l(0.707107), -r5.w
+mul r5.zw, r1.yyyz, l(0.000000, 0.000000, 0.707107, 0.707107)
+mad r6.x, r1.y, l(0.707107), -r5.w
 add r6.y, r5.z, r5.w
-mul r6.zw, r1.zzzz, r6.xxxy
+mul r6.zw, r1.wwww, r6.xxxy
 round_ne r6.zw, r6.zzzw
 mad r6.zw, r6.zzzw, r3.zzzw, v1.xxxy
 sample_l_indexable(texture2d)(float,float,float,float) r7.z, r6.zwzz, t0.yzxw, s0, l(0.000000)
@@ -13115,7 +13115,7 @@ rsq r6.w, r4.y
 mad_sat r6.z, r6.z, r6.w, -cb0[3].w
 mad_sat r4.y, r4.y, cb0[3].z, l(1.000000)
 mad r3.y, r6.z, r4.y, r3.y
-mul r6.xy, r1.wwww, r6.xyxx
+mul r6.xy, r1.xxxx, r6.xyxx
 round_ne r6.xy, r6.xyxx
 mad r6.xy, r6.xyxx, r3.zwzz, v1.xyxx
 sample_l_indexable(texture2d)(float,float,float,float) r7.z, r6.xyxx, t0.yzxw, s0, l(0.000000)
@@ -13128,9 +13128,9 @@ rsq r6.y, r4.y
 mad_sat r6.x, r6.x, r6.y, -cb0[3].w
 mad_sat r4.y, r4.y, cb0[3].z, l(1.000000)
 mad r3.y, r6.x, r4.y, r3.y
-mad r6.x, r1.x, l(-0.000000), -r1.y
-mad r6.y, r1.y, l(-0.000000), r1.x
-mul r6.zw, r1.zzzz, r6.xxxy
+mad r6.x, r1.y, l(-0.000000), -r1.z
+mad r6.y, r1.z, l(-0.000000), r1.y
+mul r6.zw, r1.wwww, r6.xxxy
 round_ne r6.zw, r6.zzzw
 mad r6.zw, r6.zzzw, r3.zzzw, v1.xxxy
 sample_l_indexable(texture2d)(float,float,float,float) r7.z, r6.zwzz, t0.yzxw, s0, l(0.000000)
@@ -13221,7 +13221,7 @@ rsq r6.w, r4.y
 mad_sat r6.z, r6.z, r6.w, -cb0[3].w
 mad_sat r4.y, r4.y, cb0[3].z, l(1.000000)
 mad r3.y, r6.z, r4.y, r3.y
-mul r6.xy, r1.wwww, r6.xyxx
+mul r6.xy, r1.xxxx, r6.xyxx
 round_ne r6.xy, r6.xyxx
 mad r6.xy, r6.xyxx, r3.zwzz, v1.xyxx
 sample_l_indexable(texture2d)(float,float,float,float) r7.z, r6.xyxx, t0.yzxw, s0, l(0.000000)
@@ -13234,9 +13234,9 @@ rsq r6.y, r4.y
 mad_sat r6.x, r6.x, r6.y, -cb0[3].w
 mad_sat r4.y, r4.y, cb0[3].z, l(1.000000)
 mad r3.y, r6.x, r4.y, r3.y
-mad r6.x, r1.x, l(-0.707107), -r5.w
-mad r6.y, r1.y, l(-0.707107), r5.z
-mul r5.zw, r1.zzzz, r6.xxxy
+mad r6.x, r1.y, l(-0.707107), -r5.w
+mad r6.y, r1.z, l(-0.707107), r5.z
+mul r5.zw, r1.wwww, r6.xxxy
 round_ne r5.zw, r5.zzzw
 mad r5.zw, r5.zzzw, r3.zzzw, v1.xxxy
 sample_l_indexable(texture2d)(float,float,float,float) r7.z, r5.zwzz, t0.yzxw, s0, l(0.000000)
@@ -13327,7 +13327,7 @@ rsq r5.w, r4.y
 mad_sat r5.z, r5.z, r5.w, -cb0[3].w
 mad_sat r4.y, r4.y, cb0[3].z, l(1.000000)
 mad r3.y, r5.z, r4.y, r3.y
-mul r5.zw, r1.wwww, r6.xxxy
+mul r5.zw, r1.xxxx, r6.xxxy
 round_ne r5.zw, r5.zzzw
 mad r5.zw, r5.zzzw, r3.zzzw, v1.xxxy
 sample_l_indexable(texture2d)(float,float,float,float) r6.z, r5.zwzz, t0.yzxw, s0, l(0.000000)
@@ -13340,9 +13340,9 @@ rsq r5.w, r4.y
 mad_sat r5.z, r5.z, r5.w, -cb0[3].w
 mad_sat r4.y, r4.y, cb0[3].z, l(1.000000)
 mad r3.y, r5.z, r4.y, r3.y
-mad r6.x, -r1.y, l(-0.000000), -r1.x
-mad r6.y, r1.x, l(-0.000000), -r1.y
-mul r5.zw, r1.zzzz, r6.xxxy
+mad r6.x, -r1.z, l(-0.000000), -r1.y
+mad r6.y, r1.y, l(-0.000000), -r1.z
+mul r5.zw, r1.wwww, r6.xxxy
 round_ne r5.zw, r5.zzzw
 mad r5.zw, r5.zzzw, r3.zzzw, v1.xxxy
 sample_l_indexable(texture2d)(float,float,float,float) r7.z, r5.zwzz, t0.yzxw, s0, l(0.000000)
@@ -13433,7 +13433,7 @@ rsq r5.w, r4.y
 mad_sat r5.z, r5.z, r5.w, -cb0[3].w
 mad_sat r4.y, r4.y, cb0[3].z, l(1.000000)
 mad r3.y, r5.z, r4.y, r3.y
-mul r5.zw, r1.wwww, r6.xxxy
+mul r5.zw, r1.xxxx, r6.xxxy
 round_ne r5.zw, r5.zzzw
 mad r5.zw, r5.zzzw, r3.zzzw, v1.xxxy
 sample_l_indexable(texture2d)(float,float,float,float) r6.z, r5.zwzz, t0.yzxw, s0, l(0.000000)
@@ -13446,10 +13446,10 @@ rsq r5.w, r4.y
 mad_sat r5.z, r5.z, r5.w, -cb0[3].w
 mad_sat r4.y, r4.y, cb0[3].z, l(1.000000)
 mad r3.y, r5.z, r4.y, r3.y
-mul r4.y, r1.y, l(-0.707107)
-mad r6.x, r1.x, l(-0.707107), -r4.y
-dp2 r6.y, r1.yxyy, l(-0.707107, -0.707107, 0.000000, 0.000000)
-mul r5.zw, r1.zzzz, r6.xxxy
+mul r4.y, r1.z, l(-0.707107)
+mad r6.x, r1.y, l(-0.707107), -r4.y
+dp2 r6.y, r1.zyzz, l(-0.707107, -0.707107, 0.000000, 0.000000)
+mul r5.zw, r1.wwww, r6.xxxy
 round_ne r5.zw, r5.zzzw
 mad r5.zw, r5.zzzw, r3.zzzw, v1.xxxy
 sample_l_indexable(texture2d)(float,float,float,float) r7.z, r5.zwzz, t0.yzxw, s0, l(0.000000)
@@ -13540,7 +13540,7 @@ rsq r5.w, r4.y
 mad_sat r5.z, r5.z, r5.w, -cb0[3].w
 mad_sat r4.y, r4.y, cb0[3].z, l(1.000000)
 mad r3.y, r5.z, r4.y, r3.y
-mul r5.zw, r1.wwww, r6.xxxy
+mul r5.zw, r1.xxxx, r6.xxxy
 round_ne r5.zw, r5.zzzw
 mad r5.zw, r5.zzzw, r3.zzzw, v1.xxxy
 sample_l_indexable(texture2d)(float,float,float,float) r6.z, r5.zwzz, t0.yzxw, s0, l(0.000000)
@@ -13553,9 +13553,9 @@ rsq r5.w, r4.y
 mad_sat r5.z, r5.z, r5.w, -cb0[3].w
 mad_sat r4.y, r4.y, cb0[3].z, l(1.000000)
 mad r3.y, r5.z, r4.y, r3.y
-mad r6.x, r1.x, l(0.000000), r1.y
-mad r6.y, r1.y, l(0.000000), -r1.x
-mul r5.zw, r1.zzzz, r6.xxxy
+mad r6.x, r1.y, l(0.000000), r1.z
+mad r6.y, r1.z, l(0.000000), -r1.y
+mul r5.zw, r1.wwww, r6.xxxy
 round_ne r5.zw, r5.zzzw
 mad r5.zw, r5.zzzw, r3.zzzw, v1.xxxy
 sample_l_indexable(texture2d)(float,float,float,float) r7.z, r5.zwzz, t0.yzxw, s0, l(0.000000)
@@ -13646,7 +13646,7 @@ rsq r5.w, r4.y
 mad_sat r5.z, r5.z, r5.w, -cb0[3].w
 mad_sat r4.y, r4.y, cb0[3].z, l(1.000000)
 mad r3.y, r5.z, r4.y, r3.y
-mul r5.zw, r1.wwww, r6.xxxy
+mul r5.zw, r1.xxxx, r6.xxxy
 round_ne r5.zw, r5.zzzw
 mad r5.zw, r5.zzzw, r3.zzzw, v1.xxxy
 sample_l_indexable(texture2d)(float,float,float,float) r6.z, r5.zwzz, t0.yzxw, s0, l(0.000000)
@@ -13659,35 +13659,35 @@ rsq r5.w, r4.y
 mad_sat r5.z, r5.z, r5.w, -cb0[3].w
 mad_sat r4.y, r4.y, cb0[3].z, l(1.000000)
 mad r3.y, r5.z, r4.y, r3.y
-mul r4.y, r1.y, l(-0.707107)
-mad r6.x, r1.x, l(0.707107), -r4.y
-dp2 r6.y, r1.yxyy, l(0.707107, -0.707107, 0.000000, 0.000000)
-mul r1.xy, r1.zzzz, r6.xyxx
-round_ne r1.xy, r1.xyxx
-mad r1.xy, r1.xyxx, r3.zwzz, v1.xyxx
-sample_l_indexable(texture2d)(float,float,float,float) r7.z, r1.xyxx, t0.yzxw, s0, l(0.000000)
-mad r1.xy, cb0[2].xyxx, r1.xyxx, cb0[2].zwzz
-mul r7.xy, r7.zzzz, r1.xyxx
-add r1.xyz, -r0.yzwy, r7.xyzx
-dp3 r4.y, r1.xyzx, r1.xyzx
-dp3 r1.x, r2.yzwy, r1.xyzx
-rsq r1.y, r4.y
-mad_sat r1.x, r1.x, r1.y, -cb0[3].w
-mad_sat r1.y, r4.y, cb0[3].z, l(1.000000)
-mad r1.x, r1.x, r1.y, r3.x
-mul r1.yz, r2.xxxx, r6.xxyx
+mul r4.y, r1.z, l(-0.707107)
+mad r6.x, r1.y, l(0.707107), -r4.y
+dp2 r6.y, r1.zyzz, l(0.707107, -0.707107, 0.000000, 0.000000)
+mul r1.yz, r1.wwww, r6.xxyx
 round_ne r1.yz, r1.yyzy
 mad r1.yz, r1.yyzy, r3.zzwz, v1.xxyx
 sample_l_indexable(texture2d)(float,float,float,float) r7.z, r1.yzyy, t0.yzxw, s0, l(0.000000)
 mad r1.yz, cb0[2].xxyx, r1.yyzy, cb0[2].zzwz
 mul r7.xy, r7.zzzz, r1.yzyy
+add r1.yzw, -r0.yyzw, r7.xxyz
+dp3 r4.y, r1.yzwy, r1.yzwy
+dp3 r1.y, r2.yzwy, r1.yzwy
+rsq r1.z, r4.y
+mad_sat r1.y, r1.y, r1.z, -cb0[3].w
+mad_sat r1.z, r4.y, cb0[3].z, l(1.000000)
+mad r1.y, r1.y, r1.z, r3.x
+mul r1.zw, r2.xxxx, r6.xxxy
+round_ne r1.zw, r1.zzzw
+mad r1.zw, r1.zzzw, r3.zzzw, v1.xxxy
+sample_l_indexable(texture2d)(float,float,float,float) r7.z, r1.zwzz, t0.yzxw, s0, l(0.000000)
+mad r1.zw, cb0[2].xxxy, r1.zzzw, cb0[2].zzzw
+mul r7.xy, r7.zzzz, r1.zwzz
 add r7.xyz, -r0.yzwy, r7.xyzx
-dp3 r1.y, r7.xyzx, r7.xyzx
-dp3 r1.z, r2.yzwy, r7.xyzx
-rsq r2.x, r1.y
-mad_sat r1.z, r1.z, r2.x, -cb0[3].w
-mad_sat r1.y, r1.y, cb0[3].z, l(1.000000)
-mad r1.y, r1.z, r1.y, r3.y
+dp3 r1.z, r7.xyzx, r7.xyzx
+dp3 r1.w, r2.yzwy, r7.xyzx
+rsq r2.x, r1.z
+mad_sat r1.w, r1.w, r2.x, -cb0[3].w
+mad_sat r1.z, r1.z, cb0[3].z, l(1.000000)
+mad r1.z, r1.w, r1.z, r3.y
 mul r3.xy, r4.xxxx, r6.xyxx
 round_ne r3.xy, r3.xyxx
 mad r3.xy, r3.xyxx, r3.zwzz, v1.xyxx
@@ -13695,12 +13695,12 @@ sample_l_indexable(texture2d)(float,float,float,float) r7.z, r3.xyxx, t0.yzxw, s
 mad r3.xy, cb0[2].xyxx, r3.xyxx, cb0[2].zwzz
 mul r7.xy, r7.zzzz, r3.xyxx
 add r7.xyz, -r0.yzwy, r7.xyzx
-dp3 r1.z, r7.xyzx, r7.xyzx
+dp3 r1.w, r7.xyzx, r7.xyzx
 dp3 r2.x, r2.yzwy, r7.xyzx
-rsq r3.x, r1.z
+rsq r3.x, r1.w
 mad_sat r2.x, r2.x, r3.x, -cb0[3].w
-mad_sat r1.z, r1.z, cb0[3].z, l(1.000000)
-mad r1.y, r2.x, r1.z, r1.y
+mad_sat r1.w, r1.w, cb0[3].z, l(1.000000)
+mad r1.z, r2.x, r1.w, r1.z
 mul r3.xy, r4.wwww, r6.xyxx
 round_ne r3.xy, r3.xyxx
 mad r3.xy, r3.xyxx, r3.zwzz, v1.xyxx
@@ -13708,12 +13708,12 @@ sample_l_indexable(texture2d)(float,float,float,float) r4.w, r3.xyxx, t0.yzwx, s
 mad r3.xy, cb0[2].xyxx, r3.xyxx, cb0[2].zwzz
 mul r4.xy, r4.wwww, r3.xyxx
 add r4.xyw, -r0.yzyw, r4.xyxw
-dp3 r1.z, r4.xywx, r4.xywx
+dp3 r1.w, r4.xywx, r4.xywx
 dp3 r2.x, r2.yzwy, r4.xywx
-rsq r3.x, r1.z
+rsq r3.x, r1.w
 mad_sat r2.x, r2.x, r3.x, -cb0[3].w
-mad_sat r1.z, r1.z, cb0[3].z, l(1.000000)
-mad r1.y, r2.x, r1.z, r1.y
+mad_sat r1.w, r1.w, cb0[3].z, l(1.000000)
+mad r1.z, r2.x, r1.w, r1.z
 mul r3.xy, r4.zzzz, r6.xyxx
 round_ne r3.xy, r3.xyxx
 mad r3.xy, r3.xyxx, r3.zwzz, v1.xyxx
@@ -13721,12 +13721,12 @@ sample_l_indexable(texture2d)(float,float,float,float) r4.z, r3.xyxx, t0.yzxw, s
 mad r3.xy, cb0[2].xyxx, r3.xyxx, cb0[2].zwzz
 mul r4.xy, r4.zzzz, r3.xyxx
 add r4.xyz, -r0.yzwy, r4.xyzx
-dp3 r1.z, r4.xyzx, r4.xyzx
+dp3 r1.w, r4.xyzx, r4.xyzx
 dp3 r2.x, r2.yzwy, r4.xyzx
-rsq r3.x, r1.z
+rsq r3.x, r1.w
 mad_sat r2.x, r2.x, r3.x, -cb0[3].w
-mad_sat r1.z, r1.z, cb0[3].z, l(1.000000)
-mad r1.y, r2.x, r1.z, r1.y
+mad_sat r1.w, r1.w, cb0[3].z, l(1.000000)
+mad r1.z, r2.x, r1.w, r1.z
 mul r3.xy, r5.xxxx, r6.xyxx
 round_ne r3.xy, r3.xyxx
 mad r3.xy, r3.xyxx, r3.zwzz, v1.xyxx
@@ -13734,12 +13734,12 @@ sample_l_indexable(texture2d)(float,float,float,float) r4.z, r3.xyxx, t0.yzxw, s
 mad r3.xy, cb0[2].xyxx, r3.xyxx, cb0[2].zwzz
 mul r4.xy, r4.zzzz, r3.xyxx
 add r4.xyz, -r0.yzwy, r4.xyzx
-dp3 r1.z, r4.xyzx, r4.xyzx
+dp3 r1.w, r4.xyzx, r4.xyzx
 dp3 r2.x, r2.yzwy, r4.xyzx
-rsq r3.x, r1.z
+rsq r3.x, r1.w
 mad_sat r2.x, r2.x, r3.x, -cb0[3].w
-mad_sat r1.z, r1.z, cb0[3].z, l(1.000000)
-mad r1.y, r2.x, r1.z, r1.y
+mad_sat r1.w, r1.w, cb0[3].z, l(1.000000)
+mad r1.z, r2.x, r1.w, r1.z
 mul r3.xy, r5.yyyy, r6.xyxx
 round_ne r3.xy, r3.xyxx
 mad r3.xy, r3.xyxx, r3.zwzz, v1.xyxx
@@ -13747,27 +13747,27 @@ sample_l_indexable(texture2d)(float,float,float,float) r4.z, r3.xyxx, t0.yzxw, s
 mad r3.xy, cb0[2].xyxx, r3.xyxx, cb0[2].zwzz
 mul r4.xy, r4.zzzz, r3.xyxx
 add r4.xyz, -r0.yzwy, r4.xyzx
-dp3 r1.z, r4.xyzx, r4.xyzx
+dp3 r1.w, r4.xyzx, r4.xyzx
 dp3 r2.x, r2.yzwy, r4.xyzx
-rsq r3.x, r1.z
+rsq r3.x, r1.w
 mad_sat r2.x, r2.x, r3.x, -cb0[3].w
-mad_sat r1.z, r1.z, cb0[3].z, l(1.000000)
-mad r1.y, r2.x, r1.z, r1.y
-mul r1.zw, r1.wwww, r6.xxxy
-round_ne r1.zw, r1.zzzw
-mad r1.zw, r1.zzzw, r3.zzzw, v1.xxxy
-sample_l_indexable(texture2d)(float,float,float,float) r3.z, r1.zwzz, t0.yzxw, s0, l(0.000000)
-mad r1.zw, cb0[2].xxxy, r1.zzzw, cb0[2].zzzw
-mul r3.xy, r3.zzzz, r1.zwzz
+mad_sat r1.w, r1.w, cb0[3].z, l(1.000000)
+mad r1.z, r2.x, r1.w, r1.z
+mul r1.xw, r1.xxxx, r6.xxxy
+round_ne r1.xw, r1.xxxw
+mad r1.xw, r1.xxxw, r3.zzzw, v1.xxxy
+sample_l_indexable(texture2d)(float,float,float,float) r3.z, r1.xwxx, t0.yzxw, s0, l(0.000000)
+mad r1.xw, cb0[2].xxxy, r1.xxxw, cb0[2].zzzw
+mul r3.xy, r3.zzzz, r1.xwxx
 add r3.xyz, -r0.yzwy, r3.xyzx
 dp3 r0.y, r3.xyzx, r3.xyzx
 dp3 r0.z, r2.yzwy, r3.xyzx
-rsq r1.z, r0.y
-mad_sat r0.z, r0.z, r1.z, -cb0[3].w
+rsq r1.x, r0.y
+mad_sat r0.z, r0.z, r1.x, -cb0[3].w
 mad_sat r0.y, r0.y, cb0[3].z, l(1.000000)
-mad r0.y, r0.z, r0.y, r1.y
+mad r0.y, r0.z, r0.y, r1.z
 mul r0.y, r0.y, cb0[4].y
-mad r0.y, r1.x, cb0[4].x, r0.y
+mad r0.y, r1.y, cb0[4].x, r0.y
 mad_sat r0.x, -r0.y, l(0.031250), l(1.000000)
 mov o0.xy, r0.xwxx
 ret 
@@ -13776,10 +13776,10 @@ ret
 
 const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_8_D3D11[] =
 {
-     68,  88,  66,  67, 107, 171, 
-    147, 212, 162, 143, 156, 110, 
-    146,   1,  89, 102,  84, 183, 
-     64,  72,   1,   0,   0,   0, 
+     68,  88,  66,  67, 105,  68, 
+      9, 165,  25,  65, 170, 175, 
+    250, 152, 135,  43, 208, 137, 
+     70, 229,   1,   0,   0,   0, 
       0, 121,   0,   0,   3,   0, 
       0,   0,  44,   0,   0,   0, 
     132,   0,   0,   0, 184,   0, 
@@ -13838,33 +13838,19 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_8_D3D11[] =
      16,   0,   0,   0,   0,   0, 
       0,  96,  16,   0,   0,   0, 
       0,   0,   1,  64,   0,   0, 
-      0,   0,   0,   0,  56,   0, 
-      0,  10,  50,   0,  16,   0, 
-      1,   0,   0,   0,  70,  16, 
-     16,   0,   0,   0,   0,   0, 
-      2,  64,   0,   0,   0,   0, 
-    128,  62,   0,   0, 128,  62, 
-      0,   0,   0,   0,   0,   0, 
-      0,   0,  69,   0,   0, 139, 
-    194,   0,   0, 128,  67,  85, 
-     21,   0, 114,   0,  16,   0, 
-      1,   0,   0,   0,  70,   0, 
-     16,   0,   1,   0,   0,   0, 
-     70, 126,  16,   0,   1,   0, 
-      0,   0,   0,  96,  16,   0, 
-      1,   0,   0,   0,  14,   0, 
-      0,   8, 130,   0,  16,   0, 
+      0,   0,   0,   0,  14,   0, 
+      0,   8,  18,   0,  16,   0, 
       1,   0,   0,   0,  10, 128, 
      32,   0,   0,   0,   0,   0, 
       3,   0,   0,   0,  58,   0, 
      16,   0,   0,   0,   0,   0, 
-     49,   0,   0,   7,  18,   0, 
-     16,   0,   2,   0,   0,   0, 
-     58,   0,  16,   0,   1,   0, 
+     49,   0,   0,   7,  34,   0, 
+     16,   0,   1,   0,   0,   0, 
+     10,   0,  16,   0,   1,   0, 
       0,   0,   1,  64,   0,   0, 
       0,   0, 128,  63,  31,   0, 
-      4,   3,  10,   0,  16,   0, 
-      2,   0,   0,   0,  54,   0, 
+      4,   3,  26,   0,  16,   0, 
+      1,   0,   0,   0,  54,   0, 
       0,   5,  18,  32,  16,   0, 
       0,   0,   0,   0,   1,  64, 
       0,   0,   0,   0, 128,  63, 
@@ -13873,20 +13859,34 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_8_D3D11[] =
      58,   0,  16,   0,   0,   0, 
       0,   0,  62,   0,   0,   1, 
      21,   0,   0,   1,  50,   0, 
-      0,  11,  50,   0,  16,   0, 
-      2,   0,   0,   0,  70, 128, 
+      0,  11,  98,   0,  16,   0, 
+      1,   0,   0,   0,   6, 129, 
      32,   0,   0,   0,   0,   0, 
-      2,   0,   0,   0,  70,  16, 
+      2,   0,   0,   0,   6,  17, 
      16,   0,   1,   0,   0,   0, 
-    230, 138,  32,   0,   0,   0, 
+    166, 139,  32,   0,   0,   0, 
       0,   0,   2,   0,   0,   0, 
      56,   0,   0,   7,  98,   0, 
      16,   0,   0,   0,   0,   0, 
     246,  15,  16,   0,   0,   0, 
-      0,   0,   6,   1,  16,   0, 
-      2,   0,   0,   0,  56,   0, 
+      0,   0,  86,   6,  16,   0, 
+      1,   0,   0,   0,  56,   0, 
+      0,  10,  98,   0,  16,   0, 
+      1,   0,   0,   0,   6,  17, 
+     16,   0,   0,   0,   0,   0, 
+      2,  64,   0,   0,   0,   0, 
+      0,   0,   0,   0, 128,  62, 
+      0,   0, 128,  62,   0,   0, 
+      0,   0,  69,   0,   0, 139, 
+    194,   0,   0, 128,  67,  85, 
+     21,   0, 226,   0,  16,   0, 
+      1,   0,   0,   0, 150,   5, 
+     16,   0,   1,   0,   0,   0, 
+     54, 121,  16,   0,   1,   0, 
+      0,   0,   0,  96,  16,   0, 
+      1,   0,   0,   0,  56,   0, 
       0,   7,  18,   0,  16,   0, 
-      2,   0,   0,   0,  58,   0, 
+      2,   0,   0,   0,  10,   0, 
      16,   0,   1,   0,   0,   0, 
       1,  64,   0,   0,  57, 142, 
     227,  60,  54,   0,   0,   6, 
@@ -14107,16 +14107,16 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_8_D3D11[] =
      86,  14,  16,   0,   2,   0, 
       0,   0,   6,   0,  16,   0, 
       3,   0,   0,   0,  50,   0, 
-      0,   9,  66,   0,  16,   0, 
-      1,   0,   0,   0,  42,   0, 
+      0,   9, 130,   0,  16,   0, 
+      1,   0,   0,   0,  58,   0, 
      16,   0,   1,   0,   0,   0, 
      10,   0,  16,   0,   2,   0, 
       0,   0,   1,  64,   0,   0, 
       0,   0, 128,  63,  56,   0, 
       0,   7,  50,   0,  16,   0, 
-      3,   0,   0,   0,  70,   0, 
+      3,   0,   0,   0, 150,   5, 
      16,   0,   1,   0,   0,   0, 
-    166,  10,  16,   0,   1,   0, 
+    246,  15,  16,   0,   1,   0, 
       0,   0,  64,   0,   0,   5, 
      50,   0,  16,   0,   3,   0, 
       0,   0,  70,   0,  16,   0, 
@@ -14156,10 +14156,10 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_8_D3D11[] =
       0,   0,  70,   0,  16,   0, 
       3,   0,   0,   0,  50,   0, 
       0,   9,  18,   0,  16,   0, 
-      2,   0,   0,   0,  58,   0, 
+      2,   0,   0,   0,  10,   0, 
      16,   0,   1,   0,   0,   0, 
       1,  64,   0,   0,  57, 142, 
-    227,  60,  42,   0,  16,   0, 
+    227,  60,  58,   0,  16,   0, 
       1,   0,   0,   0,   0,   0, 
       0,   8, 114,   0,  16,   0, 
       4,   0,   0,   0, 150,   7, 
@@ -14194,7 +14194,7 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_8_D3D11[] =
       0,   0,   1,  64,   0,   0, 
       0,   0, 128,  63,  56,   0, 
       0,   7,  50,   0,  16,   0, 
-      4,   0,   0,   0,  70,   0, 
+      4,   0,   0,   0, 150,   5, 
      16,   0,   1,   0,   0,   0, 
       6,   0,  16,   0,   2,   0, 
       0,   0,  64,   0,   0,   5, 
@@ -14229,7 +14229,7 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_8_D3D11[] =
      70,   0,  16,   0,   4,   0, 
       0,   0,  50,   0,   0,   9, 
      18,   0,  16,   0,   4,   0, 
-      0,   0,  58,   0,  16,   0, 
+      0,   0,  10,   0,  16,   0, 
       1,   0,   0,   0,   1,  64, 
       0,   0,  57, 142, 227,  60, 
      10,   0,  16,   0,   2,   0, 
@@ -14267,7 +14267,7 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_8_D3D11[] =
       1,  64,   0,   0,   0,   0, 
     128,  63,  56,   0,   0,   7, 
      50,   0,  16,   0,   5,   0, 
-      0,   0,  70,   0,  16,   0, 
+      0,   0, 150,   5,  16,   0, 
       1,   0,   0,   0,   6,   0, 
      16,   0,   4,   0,   0,   0, 
      64,   0,   0,   5,  50,   0, 
@@ -14302,7 +14302,7 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_8_D3D11[] =
      16,   0,   5,   0,   0,   0, 
      50,   0,   0,   9, 130,   0, 
      16,   0,   4,   0,   0,   0, 
-     58,   0,  16,   0,   1,   0, 
+     10,   0,  16,   0,   1,   0, 
       0,   0,   1,  64,   0,   0, 
      57, 142, 227,  60,  10,   0, 
      16,   0,   4,   0,   0,   0, 
@@ -14350,7 +14350,7 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_8_D3D11[] =
       0,   0,  10,   0,  16,   0, 
       5,   0,   0,   0,  56,   0, 
       0,   7,  50,   0,  16,   0, 
-      5,   0,   0,   0,  70,   0, 
+      5,   0,   0,   0, 150,   5, 
      16,   0,   1,   0,   0,   0, 
     246,  15,  16,   0,   4,   0, 
       0,   0,  64,   0,   0,   5, 
@@ -14385,7 +14385,7 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_8_D3D11[] =
      70,   0,  16,   0,   5,   0, 
       0,   0,  50,   0,   0,   9, 
      66,   0,  16,   0,   4,   0, 
-      0,   0,  58,   0,  16,   0, 
+      0,   0,  10,   0,  16,   0, 
       1,   0,   0,   0,   1,  64, 
       0,   0,  57, 142, 227,  60, 
      58,   0,  16,   0,   4,   0, 
@@ -14429,7 +14429,7 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_8_D3D11[] =
      26,   0,  16,   0,   4,   0, 
       0,   0,  56,   0,   0,   7, 
      50,   0,  16,   0,   5,   0, 
-      0,   0,  70,   0,  16,   0, 
+      0,   0, 150,   5,  16,   0, 
       1,   0,   0,   0, 166,  10, 
      16,   0,   4,   0,   0,   0, 
      64,   0,   0,   5,  50,   0, 
@@ -14464,7 +14464,7 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_8_D3D11[] =
      16,   0,   5,   0,   0,   0, 
      50,   0,   0,   9,  18,   0, 
      16,   0,   5,   0,   0,   0, 
-     58,   0,  16,   0,   1,   0, 
+     10,   0,  16,   0,   1,   0, 
       0,   0,   1,  64,   0,   0, 
      57, 142, 227,  60,  42,   0, 
      16,   0,   4,   0,   0,   0, 
@@ -14508,7 +14508,7 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_8_D3D11[] =
      16,   0,   4,   0,   0,   0, 
      56,   0,   0,   7,  98,   0, 
      16,   0,   5,   0,   0,   0, 
-      6,   1,  16,   0,   1,   0, 
+     86,   6,  16,   0,   1,   0, 
       0,   0,   6,   0,  16,   0, 
       5,   0,   0,   0,  64,   0, 
       0,   5,  98,   0,  16,   0, 
@@ -14542,7 +14542,7 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_8_D3D11[] =
       0,   0, 150,   5,  16,   0, 
       5,   0,   0,   0,  50,   0, 
       0,   9,  34,   0,  16,   0, 
-      5,   0,   0,   0,  58,   0, 
+      5,   0,   0,   0,  10,   0, 
      16,   0,   1,   0,   0,   0, 
       1,  64,   0,   0,  57, 142, 
     227,  60,  10,   0,  16,   0, 
@@ -14586,7 +14586,7 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_8_D3D11[] =
       0,   0,  26,   0,  16,   0, 
       4,   0,   0,   0,  56,   0, 
       0,   7, 194,   0,  16,   0, 
-      5,   0,   0,   0,   6,   4, 
+      5,   0,   0,   0,  86,   9, 
      16,   0,   1,   0,   0,   0, 
      86,   5,  16,   0,   5,   0, 
       0,   0,  64,   0,   0,   5, 
@@ -14620,8 +14620,8 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_8_D3D11[] =
      16,   0,   6,   0,   0,   0, 
     230,  10,  16,   0,   5,   0, 
       0,   0,  50,   0,   0,   9, 
-    130,   0,  16,   0,   1,   0, 
-      0,   0,  58,   0,  16,   0, 
+     18,   0,  16,   0,   1,   0, 
+      0,   0,  10,   0,  16,   0, 
       1,   0,   0,   0,   1,  64, 
       0,   0,  57, 142, 227,  60, 
      26,   0,  16,   0,   5,   0, 
@@ -14665,8 +14665,8 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_8_D3D11[] =
      26,   0,  16,   0,   4,   0, 
       0,   0,  56,   0,   0,   7, 
     194,   0,  16,   0,   5,   0, 
-      0,   0,   6,   4,  16,   0, 
-      1,   0,   0,   0, 246,  15, 
+      0,   0,  86,   9,  16,   0, 
+      1,   0,   0,   0,   6,   0, 
      16,   0,   1,   0,   0,   0, 
      64,   0,   0,   5, 194,   0, 
      16,   0,   5,   0,   0,   0, 
@@ -14738,13 +14738,13 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_8_D3D11[] =
      16,   0,   4,   0,   0,   0, 
      56,   0,   0,  10, 194,   0, 
      16,   0,   5,   0,   0,   0, 
-      6,   4,  16,   0,   1,   0, 
+     86,   9,  16,   0,   1,   0, 
       0,   0,   2,  64,   0,   0, 
       0,   0,   0,   0,   0,   0, 
       0,   0, 243,   4,  53,  63, 
     243,   4,  53,  63,  50,   0, 
       0,  10,  18,   0,  16,   0, 
-      6,   0,   0,   0,  10,   0, 
+      6,   0,   0,   0,  26,   0, 
      16,   0,   1,   0,   0,   0, 
       1,  64,   0,   0, 243,   4, 
      53,  63,  58,   0,  16, 128, 
@@ -14756,7 +14756,7 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_8_D3D11[] =
      16,   0,   5,   0,   0,   0, 
      56,   0,   0,   7, 194,   0, 
      16,   0,   6,   0,   0,   0, 
-    166,  10,  16,   0,   1,   0, 
+    246,  15,  16,   0,   1,   0, 
       0,   0,   6,   4,  16,   0, 
       6,   0,   0,   0,  64,   0, 
       0,   5, 194,   0,  16,   0, 
@@ -15269,7 +15269,7 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_8_D3D11[] =
      26,   0,  16,   0,   3,   0, 
       0,   0,  56,   0,   0,   7, 
      50,   0,  16,   0,   6,   0, 
-      0,   0, 246,  15,  16,   0, 
+      0,   0,   6,   0,  16,   0, 
       1,   0,   0,   0,  70,   0, 
      16,   0,   6,   0,   0,   0, 
      64,   0,   0,   5,  50,   0, 
@@ -15342,19 +15342,19 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_8_D3D11[] =
      16,   0,   3,   0,   0,   0, 
      50,   0,   0,  10,  18,   0, 
      16,   0,   6,   0,   0,   0, 
-     10,   0,  16,   0,   1,   0, 
+     26,   0,  16,   0,   1,   0, 
       0,   0,   1,  64,   0,   0, 
-     46, 189,  59, 179,  26,   0, 
+     46, 189,  59, 179,  42,   0, 
      16, 128,  65,   0,   0,   0, 
       1,   0,   0,   0,  50,   0, 
       0,   9,  34,   0,  16,   0, 
-      6,   0,   0,   0,  26,   0, 
+      6,   0,   0,   0,  42,   0, 
      16,   0,   1,   0,   0,   0, 
       1,  64,   0,   0,  46, 189, 
-     59, 179,  10,   0,  16,   0, 
+     59, 179,  26,   0,  16,   0, 
       1,   0,   0,   0,  56,   0, 
       0,   7, 194,   0,  16,   0, 
-      6,   0,   0,   0, 166,  10, 
+      6,   0,   0,   0, 246,  15, 
      16,   0,   1,   0,   0,   0, 
       6,   4,  16,   0,   6,   0, 
       0,   0,  64,   0,   0,   5, 
@@ -15863,7 +15863,7 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_8_D3D11[] =
      26,   0,  16,   0,   3,   0, 
       0,   0,  56,   0,   0,   7, 
      50,   0,  16,   0,   6,   0, 
-      0,   0, 246,  15,  16,   0, 
+      0,   0,   6,   0,  16,   0, 
       1,   0,   0,   0,  70,   0, 
      16,   0,   6,   0,   0,   0, 
      64,   0,   0,   5,  50,   0, 
@@ -15936,19 +15936,19 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_8_D3D11[] =
      16,   0,   3,   0,   0,   0, 
      50,   0,   0,  10,  18,   0, 
      16,   0,   6,   0,   0,   0, 
-     10,   0,  16,   0,   1,   0, 
+     26,   0,  16,   0,   1,   0, 
       0,   0,   1,  64,   0,   0, 
     243,   4,  53, 191,  58,   0, 
      16, 128,  65,   0,   0,   0, 
       5,   0,   0,   0,  50,   0, 
       0,   9,  34,   0,  16,   0, 
-      6,   0,   0,   0,  26,   0, 
+      6,   0,   0,   0,  42,   0, 
      16,   0,   1,   0,   0,   0, 
       1,  64,   0,   0, 243,   4, 
      53, 191,  42,   0,  16,   0, 
       5,   0,   0,   0,  56,   0, 
       0,   7, 194,   0,  16,   0, 
-      5,   0,   0,   0, 166,  10, 
+      5,   0,   0,   0, 246,  15, 
      16,   0,   1,   0,   0,   0, 
       6,   4,  16,   0,   6,   0, 
       0,   0,  64,   0,   0,   5, 
@@ -16457,7 +16457,7 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_8_D3D11[] =
      26,   0,  16,   0,   3,   0, 
       0,   0,  56,   0,   0,   7, 
     194,   0,  16,   0,   5,   0, 
-      0,   0, 246,  15,  16,   0, 
+      0,   0,   6,   0,  16,   0, 
       1,   0,   0,   0,   6,   4, 
      16,   0,   6,   0,   0,   0, 
      64,   0,   0,   5, 194,   0, 
@@ -16530,21 +16530,21 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_8_D3D11[] =
      16,   0,   3,   0,   0,   0, 
      50,   0,   0,  11,  18,   0, 
      16,   0,   6,   0,   0,   0, 
-     26,   0,  16, 128,  65,   0, 
+     42,   0,  16, 128,  65,   0, 
       0,   0,   1,   0,   0,   0, 
       1,  64,   0,   0,  46, 189, 
-    187, 179,  10,   0,  16, 128, 
+    187, 179,  26,   0,  16, 128, 
      65,   0,   0,   0,   1,   0, 
       0,   0,  50,   0,   0,  10, 
      34,   0,  16,   0,   6,   0, 
-      0,   0,  10,   0,  16,   0, 
+      0,   0,  26,   0,  16,   0, 
       1,   0,   0,   0,   1,  64, 
       0,   0,  46, 189, 187, 179, 
-     26,   0,  16, 128,  65,   0, 
+     42,   0,  16, 128,  65,   0, 
       0,   0,   1,   0,   0,   0, 
      56,   0,   0,   7, 194,   0, 
      16,   0,   5,   0,   0,   0, 
-    166,  10,  16,   0,   1,   0, 
+    246,  15,  16,   0,   1,   0, 
       0,   0,   6,   4,  16,   0, 
       6,   0,   0,   0,  64,   0, 
       0,   5, 194,   0,  16,   0, 
@@ -17052,7 +17052,7 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_8_D3D11[] =
       0,   0,  26,   0,  16,   0, 
       3,   0,   0,   0,  56,   0, 
       0,   7, 194,   0,  16,   0, 
-      5,   0,   0,   0, 246,  15, 
+      5,   0,   0,   0,   6,   0, 
      16,   0,   1,   0,   0,   0, 
       6,   4,  16,   0,   6,   0, 
       0,   0,  64,   0,   0,   5, 
@@ -17125,25 +17125,25 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_8_D3D11[] =
      26,   0,  16,   0,   3,   0, 
       0,   0,  56,   0,   0,   7, 
      34,   0,  16,   0,   4,   0, 
-      0,   0,  26,   0,  16,   0, 
+      0,   0,  42,   0,  16,   0, 
       1,   0,   0,   0,   1,  64, 
       0,   0, 245,   4,  53, 191, 
      50,   0,   0,  10,  18,   0, 
      16,   0,   6,   0,   0,   0, 
-     10,   0,  16,   0,   1,   0, 
+     26,   0,  16,   0,   1,   0, 
       0,   0,   1,  64,   0,   0, 
     241,   4,  53, 191,  26,   0, 
      16, 128,  65,   0,   0,   0, 
       4,   0,   0,   0,  15,   0, 
       0,  10,  34,   0,  16,   0, 
-      6,   0,   0,   0,  22,   5, 
+      6,   0,   0,   0, 102,  10, 
      16,   0,   1,   0,   0,   0, 
       2,  64,   0,   0, 241,   4, 
      53, 191, 245,   4,  53, 191, 
       0,   0,   0,   0,   0,   0, 
       0,   0,  56,   0,   0,   7, 
     194,   0,  16,   0,   5,   0, 
-      0,   0, 166,  10,  16,   0, 
+      0,   0, 246,  15,  16,   0, 
       1,   0,   0,   0,   6,   4, 
      16,   0,   6,   0,   0,   0, 
      64,   0,   0,   5, 194,   0, 
@@ -17652,7 +17652,7 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_8_D3D11[] =
      16,   0,   3,   0,   0,   0, 
      56,   0,   0,   7, 194,   0, 
      16,   0,   5,   0,   0,   0, 
-    246,  15,  16,   0,   1,   0, 
+      6,   0,  16,   0,   1,   0, 
       0,   0,   6,   4,  16,   0, 
       6,   0,   0,   0,  64,   0, 
       0,   5, 194,   0,  16,   0, 
@@ -17724,20 +17724,20 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_8_D3D11[] =
       0,   0,  26,   0,  16,   0, 
       3,   0,   0,   0,  50,   0, 
       0,   9,  18,   0,  16,   0, 
-      6,   0,   0,   0,  10,   0, 
-     16,   0,   1,   0,   0,   0, 
-      1,  64,   0,   0,  46, 222, 
-     76,  50,  26,   0,  16,   0, 
-      1,   0,   0,   0,  50,   0, 
-      0,  10,  34,   0,  16,   0, 
       6,   0,   0,   0,  26,   0, 
      16,   0,   1,   0,   0,   0, 
       1,  64,   0,   0,  46, 222, 
-     76,  50,  10,   0,  16, 128, 
+     76,  50,  42,   0,  16,   0, 
+      1,   0,   0,   0,  50,   0, 
+      0,  10,  34,   0,  16,   0, 
+      6,   0,   0,   0,  42,   0, 
+     16,   0,   1,   0,   0,   0, 
+      1,  64,   0,   0,  46, 222, 
+     76,  50,  26,   0,  16, 128, 
      65,   0,   0,   0,   1,   0, 
       0,   0,  56,   0,   0,   7, 
     194,   0,  16,   0,   5,   0, 
-      0,   0, 166,  10,  16,   0, 
+      0,   0, 246,  15,  16,   0, 
       1,   0,   0,   0,   6,   4, 
      16,   0,   6,   0,   0,   0, 
      64,   0,   0,   5, 194,   0, 
@@ -18246,7 +18246,7 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_8_D3D11[] =
      16,   0,   3,   0,   0,   0, 
      56,   0,   0,   7, 194,   0, 
      16,   0,   5,   0,   0,   0, 
-    246,  15,  16,   0,   1,   0, 
+      6,   0,  16,   0,   1,   0, 
       0,   0,   6,   4,  16,   0, 
       6,   0,   0,   0,  64,   0, 
       0,   5, 194,   0,  16,   0, 
@@ -18318,129 +18318,129 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_8_D3D11[] =
       0,   0,  26,   0,  16,   0, 
       3,   0,   0,   0,  56,   0, 
       0,   7,  34,   0,  16,   0, 
-      4,   0,   0,   0,  26,   0, 
+      4,   0,   0,   0,  42,   0, 
      16,   0,   1,   0,   0,   0, 
       1,  64,   0,   0, 239,   4, 
      53, 191,  50,   0,   0,  10, 
      18,   0,  16,   0,   6,   0, 
-      0,   0,  10,   0,  16,   0, 
+      0,   0,  26,   0,  16,   0, 
       1,   0,   0,   0,   1,  64, 
       0,   0, 247,   4,  53,  63, 
      26,   0,  16, 128,  65,   0, 
       0,   0,   4,   0,   0,   0, 
      15,   0,   0,  10,  34,   0, 
      16,   0,   6,   0,   0,   0, 
-     22,   5,  16,   0,   1,   0, 
+    102,  10,  16,   0,   1,   0, 
       0,   0,   2,  64,   0,   0, 
     247,   4,  53,  63, 239,   4, 
      53, 191,   0,   0,   0,   0, 
       0,   0,   0,   0,  56,   0, 
-      0,   7,  50,   0,  16,   0, 
-      1,   0,   0,   0, 166,  10, 
+      0,   7,  98,   0,  16,   0, 
+      1,   0,   0,   0, 246,  15, 
      16,   0,   1,   0,   0,   0, 
-     70,   0,  16,   0,   6,   0, 
+      6,   1,  16,   0,   6,   0, 
       0,   0,  64,   0,   0,   5, 
-     50,   0,  16,   0,   1,   0, 
-      0,   0,  70,   0,  16,   0, 
+     98,   0,  16,   0,   1,   0, 
+      0,   0,  86,   6,  16,   0, 
       1,   0,   0,   0,  50,   0, 
-      0,   9,  50,   0,  16,   0, 
-      1,   0,   0,   0,  70,   0, 
+      0,   9,  98,   0,  16,   0, 
+      1,   0,   0,   0,  86,   6, 
      16,   0,   1,   0,   0,   0, 
-    230,  10,  16,   0,   3,   0, 
-      0,   0,  70,  16,  16,   0, 
+    166,  11,  16,   0,   3,   0, 
+      0,   0,   6,  17,  16,   0, 
       1,   0,   0,   0,  72,   0, 
       0, 141, 194,   0,   0, 128, 
      67,  85,  21,   0,  66,   0, 
      16,   0,   7,   0,   0,   0, 
-     70,   0,  16,   0,   1,   0, 
+    150,   5,  16,   0,   1,   0, 
       0,   0, 150, 124,  16,   0, 
       0,   0,   0,   0,   0,  96, 
      16,   0,   0,   0,   0,   0, 
       1,  64,   0,   0,   0,   0, 
       0,   0,  50,   0,   0,  11, 
-     50,   0,  16,   0,   1,   0, 
-      0,   0,  70, 128,  32,   0, 
+     98,   0,  16,   0,   1,   0, 
+      0,   0,   6, 129,  32,   0, 
       0,   0,   0,   0,   2,   0, 
-      0,   0,  70,   0,  16,   0, 
-      1,   0,   0,   0, 230, 138, 
+      0,   0,  86,   6,  16,   0, 
+      1,   0,   0,   0, 166, 139, 
      32,   0,   0,   0,   0,   0, 
       2,   0,   0,   0,  56,   0, 
       0,   7,  50,   0,  16,   0, 
       7,   0,   0,   0, 166,  10, 
      16,   0,   7,   0,   0,   0, 
-     70,   0,  16,   0,   1,   0, 
+    150,   5,  16,   0,   1,   0, 
       0,   0,   0,   0,   0,   8, 
-    114,   0,  16,   0,   1,   0, 
-      0,   0, 150,   7,  16, 128, 
+    226,   0,  16,   0,   1,   0, 
+      0,   0,  86,  14,  16, 128, 
      65,   0,   0,   0,   0,   0, 
-      0,   0,  70,   2,  16,   0, 
+      0,   0,   6,   9,  16,   0, 
       7,   0,   0,   0,  16,   0, 
       0,   7,  34,   0,  16,   0, 
-      4,   0,   0,   0,  70,   2, 
+      4,   0,   0,   0, 150,   7, 
      16,   0,   1,   0,   0,   0, 
-     70,   2,  16,   0,   1,   0, 
+    150,   7,  16,   0,   1,   0, 
       0,   0,  16,   0,   0,   7, 
-     18,   0,  16,   0,   1,   0, 
+     34,   0,  16,   0,   1,   0, 
       0,   0, 150,   7,  16,   0, 
-      2,   0,   0,   0,  70,   2, 
+      2,   0,   0,   0, 150,   7, 
      16,   0,   1,   0,   0,   0, 
-     68,   0,   0,   5,  34,   0, 
+     68,   0,   0,   5,  66,   0, 
      16,   0,   1,   0,   0,   0, 
      26,   0,  16,   0,   4,   0, 
       0,   0,  50,  32,   0,  11, 
-     18,   0,  16,   0,   1,   0, 
-      0,   0,  10,   0,  16,   0, 
-      1,   0,   0,   0,  26,   0, 
+     34,   0,  16,   0,   1,   0, 
+      0,   0,  26,   0,  16,   0, 
+      1,   0,   0,   0,  42,   0, 
      16,   0,   1,   0,   0,   0, 
      58, 128,  32, 128,  65,   0, 
       0,   0,   0,   0,   0,   0, 
       3,   0,   0,   0,  50,  32, 
-      0,  10,  34,   0,  16,   0, 
+      0,  10,  66,   0,  16,   0, 
       1,   0,   0,   0,  26,   0, 
      16,   0,   4,   0,   0,   0, 
      42, 128,  32,   0,   0,   0, 
       0,   0,   3,   0,   0,   0, 
       1,  64,   0,   0,   0,   0, 
     128,  63,  50,   0,   0,   9, 
-     18,   0,  16,   0,   1,   0, 
-      0,   0,  10,   0,  16,   0, 
-      1,   0,   0,   0,  26,   0, 
+     34,   0,  16,   0,   1,   0, 
+      0,   0,  26,   0,  16,   0, 
+      1,   0,   0,   0,  42,   0, 
      16,   0,   1,   0,   0,   0, 
      10,   0,  16,   0,   3,   0, 
       0,   0,  56,   0,   0,   7, 
-     98,   0,  16,   0,   1,   0, 
+    194,   0,  16,   0,   1,   0, 
       0,   0,   6,   0,  16,   0, 
-      2,   0,   0,   0,   6,   1, 
+      2,   0,   0,   0,   6,   4, 
      16,   0,   6,   0,   0,   0, 
-     64,   0,   0,   5,  98,   0, 
+     64,   0,   0,   5, 194,   0, 
      16,   0,   1,   0,   0,   0, 
-     86,   6,  16,   0,   1,   0, 
+    166,  14,  16,   0,   1,   0, 
       0,   0,  50,   0,   0,   9, 
-     98,   0,  16,   0,   1,   0, 
-      0,   0,  86,   6,  16,   0, 
-      1,   0,   0,   0, 166,  11, 
+    194,   0,  16,   0,   1,   0, 
+      0,   0, 166,  14,  16,   0, 
+      1,   0,   0,   0, 166,  14, 
      16,   0,   3,   0,   0,   0, 
-      6,  17,  16,   0,   1,   0, 
+      6,  20,  16,   0,   1,   0, 
       0,   0,  72,   0,   0, 141, 
     194,   0,   0, 128,  67,  85, 
      21,   0,  66,   0,  16,   0, 
-      7,   0,   0,   0, 150,   5, 
+      7,   0,   0,   0, 230,  10, 
      16,   0,   1,   0,   0,   0, 
     150, 124,  16,   0,   0,   0, 
       0,   0,   0,  96,  16,   0, 
       0,   0,   0,   0,   1,  64, 
       0,   0,   0,   0,   0,   0, 
-     50,   0,   0,  11,  98,   0, 
+     50,   0,   0,  11, 194,   0, 
      16,   0,   1,   0,   0,   0, 
-      6, 129,  32,   0,   0,   0, 
+      6, 132,  32,   0,   0,   0, 
       0,   0,   2,   0,   0,   0, 
-     86,   6,  16,   0,   1,   0, 
-      0,   0, 166, 139,  32,   0, 
+    166,  14,  16,   0,   1,   0, 
+      0,   0, 166, 142,  32,   0, 
       0,   0,   0,   0,   2,   0, 
       0,   0,  56,   0,   0,   7, 
      50,   0,  16,   0,   7,   0, 
       0,   0, 166,  10,  16,   0, 
-      7,   0,   0,   0, 150,   5, 
+      7,   0,   0,   0, 230,  10, 
      16,   0,   1,   0,   0,   0, 
       0,   0,   0,   8, 114,   0, 
      16,   0,   7,   0,   0,   0, 
@@ -18448,36 +18448,36 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_8_D3D11[] =
       0,   0,   0,   0,   0,   0, 
      70,   2,  16,   0,   7,   0, 
       0,   0,  16,   0,   0,   7, 
-     34,   0,  16,   0,   1,   0, 
+     66,   0,  16,   0,   1,   0, 
       0,   0,  70,   2,  16,   0, 
       7,   0,   0,   0,  70,   2, 
      16,   0,   7,   0,   0,   0, 
-     16,   0,   0,   7,  66,   0, 
+     16,   0,   0,   7, 130,   0, 
      16,   0,   1,   0,   0,   0, 
     150,   7,  16,   0,   2,   0, 
       0,   0,  70,   2,  16,   0, 
       7,   0,   0,   0,  68,   0, 
       0,   5,  18,   0,  16,   0, 
-      2,   0,   0,   0,  26,   0, 
+      2,   0,   0,   0,  42,   0, 
      16,   0,   1,   0,   0,   0, 
-     50,  32,   0,  11,  66,   0, 
+     50,  32,   0,  11, 130,   0, 
      16,   0,   1,   0,   0,   0, 
-     42,   0,  16,   0,   1,   0, 
+     58,   0,  16,   0,   1,   0, 
       0,   0,  10,   0,  16,   0, 
       2,   0,   0,   0,  58, 128, 
      32, 128,  65,   0,   0,   0, 
       0,   0,   0,   0,   3,   0, 
       0,   0,  50,  32,   0,  10, 
-     34,   0,  16,   0,   1,   0, 
-      0,   0,  26,   0,  16,   0, 
+     66,   0,  16,   0,   1,   0, 
+      0,   0,  42,   0,  16,   0, 
       1,   0,   0,   0,  42, 128, 
      32,   0,   0,   0,   0,   0, 
       3,   0,   0,   0,   1,  64, 
       0,   0,   0,   0, 128,  63, 
-     50,   0,   0,   9,  34,   0, 
+     50,   0,   0,   9,  66,   0, 
      16,   0,   1,   0,   0,   0, 
-     42,   0,  16,   0,   1,   0, 
-      0,   0,  26,   0,  16,   0, 
+     58,   0,  16,   0,   1,   0, 
+      0,   0,  42,   0,  16,   0, 
       1,   0,   0,   0,  26,   0, 
      16,   0,   3,   0,   0,   0, 
      56,   0,   0,   7,  50,   0, 
@@ -18520,7 +18520,7 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_8_D3D11[] =
      16, 128,  65,   0,   0,   0, 
       0,   0,   0,   0,  70,   2, 
      16,   0,   7,   0,   0,   0, 
-     16,   0,   0,   7,  66,   0, 
+     16,   0,   0,   7, 130,   0, 
      16,   0,   1,   0,   0,   0, 
      70,   2,  16,   0,   7,   0, 
       0,   0,  70,   2,  16,   0, 
@@ -18531,7 +18531,7 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_8_D3D11[] =
      70,   2,  16,   0,   7,   0, 
       0,   0,  68,   0,   0,   5, 
      18,   0,  16,   0,   3,   0, 
-      0,   0,  42,   0,  16,   0, 
+      0,   0,  58,   0,  16,   0, 
       1,   0,   0,   0,  50,  32, 
       0,  11,  18,   0,  16,   0, 
       2,   0,   0,   0,  10,   0, 
@@ -18540,18 +18540,18 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_8_D3D11[] =
       0,   0,  58, 128,  32, 128, 
      65,   0,   0,   0,   0,   0, 
       0,   0,   3,   0,   0,   0, 
-     50,  32,   0,  10,  66,   0, 
+     50,  32,   0,  10, 130,   0, 
      16,   0,   1,   0,   0,   0, 
-     42,   0,  16,   0,   1,   0, 
+     58,   0,  16,   0,   1,   0, 
       0,   0,  42, 128,  32,   0, 
       0,   0,   0,   0,   3,   0, 
       0,   0,   1,  64,   0,   0, 
       0,   0, 128,  63,  50,   0, 
-      0,   9,  34,   0,  16,   0, 
+      0,   9,  66,   0,  16,   0, 
       1,   0,   0,   0,  10,   0, 
      16,   0,   2,   0,   0,   0, 
-     42,   0,  16,   0,   1,   0, 
-      0,   0,  26,   0,  16,   0, 
+     58,   0,  16,   0,   1,   0, 
+      0,   0,  42,   0,  16,   0, 
       1,   0,   0,   0,  56,   0, 
       0,   7,  50,   0,  16,   0, 
       3,   0,   0,   0, 246,  15, 
@@ -18593,7 +18593,7 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_8_D3D11[] =
      65,   0,   0,   0,   0,   0, 
       0,   0,  70,  12,  16,   0, 
       4,   0,   0,   0,  16,   0, 
-      0,   7,  66,   0,  16,   0, 
+      0,   7, 130,   0,  16,   0, 
       1,   0,   0,   0,  70,   3, 
      16,   0,   4,   0,   0,   0, 
      70,   3,  16,   0,   4,   0, 
@@ -18604,7 +18604,7 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_8_D3D11[] =
      16,   0,   4,   0,   0,   0, 
      68,   0,   0,   5,  18,   0, 
      16,   0,   3,   0,   0,   0, 
-     42,   0,  16,   0,   1,   0, 
+     58,   0,  16,   0,   1,   0, 
       0,   0,  50,  32,   0,  11, 
      18,   0,  16,   0,   2,   0, 
       0,   0,  10,   0,  16,   0, 
@@ -18613,18 +18613,18 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_8_D3D11[] =
      58, 128,  32, 128,  65,   0, 
       0,   0,   0,   0,   0,   0, 
       3,   0,   0,   0,  50,  32, 
-      0,  10,  66,   0,  16,   0, 
-      1,   0,   0,   0,  42,   0, 
+      0,  10, 130,   0,  16,   0, 
+      1,   0,   0,   0,  58,   0, 
      16,   0,   1,   0,   0,   0, 
      42, 128,  32,   0,   0,   0, 
       0,   0,   3,   0,   0,   0, 
       1,  64,   0,   0,   0,   0, 
     128,  63,  50,   0,   0,   9, 
-     34,   0,  16,   0,   1,   0, 
+     66,   0,  16,   0,   1,   0, 
       0,   0,  10,   0,  16,   0, 
-      2,   0,   0,   0,  42,   0, 
+      2,   0,   0,   0,  58,   0, 
      16,   0,   1,   0,   0,   0, 
-     26,   0,  16,   0,   1,   0, 
+     42,   0,  16,   0,   1,   0, 
       0,   0,  56,   0,   0,   7, 
      50,   0,  16,   0,   3,   0, 
       0,   0, 166,  10,  16,   0, 
@@ -18666,7 +18666,7 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_8_D3D11[] =
       0,   0,   0,   0,   0,   0, 
      70,   2,  16,   0,   4,   0, 
       0,   0,  16,   0,   0,   7, 
-     66,   0,  16,   0,   1,   0, 
+    130,   0,  16,   0,   1,   0, 
       0,   0,  70,   2,  16,   0, 
       4,   0,   0,   0,  70,   2, 
      16,   0,   4,   0,   0,   0, 
@@ -18676,7 +18676,7 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_8_D3D11[] =
       0,   0,  70,   2,  16,   0, 
       4,   0,   0,   0,  68,   0, 
       0,   5,  18,   0,  16,   0, 
-      3,   0,   0,   0,  42,   0, 
+      3,   0,   0,   0,  58,   0, 
      16,   0,   1,   0,   0,   0, 
      50,  32,   0,  11,  18,   0, 
      16,   0,   2,   0,   0,   0, 
@@ -18686,17 +18686,17 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_8_D3D11[] =
      32, 128,  65,   0,   0,   0, 
       0,   0,   0,   0,   3,   0, 
       0,   0,  50,  32,   0,  10, 
-     66,   0,  16,   0,   1,   0, 
-      0,   0,  42,   0,  16,   0, 
+    130,   0,  16,   0,   1,   0, 
+      0,   0,  58,   0,  16,   0, 
       1,   0,   0,   0,  42, 128, 
      32,   0,   0,   0,   0,   0, 
       3,   0,   0,   0,   1,  64, 
       0,   0,   0,   0, 128,  63, 
-     50,   0,   0,   9,  34,   0, 
+     50,   0,   0,   9,  66,   0, 
      16,   0,   1,   0,   0,   0, 
      10,   0,  16,   0,   2,   0, 
-      0,   0,  42,   0,  16,   0, 
-      1,   0,   0,   0,  26,   0, 
+      0,   0,  58,   0,  16,   0, 
+      1,   0,   0,   0,  42,   0, 
      16,   0,   1,   0,   0,   0, 
      56,   0,   0,   7,  50,   0, 
      16,   0,   3,   0,   0,   0, 
@@ -18738,7 +18738,7 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_8_D3D11[] =
      16, 128,  65,   0,   0,   0, 
       0,   0,   0,   0,  70,   2, 
      16,   0,   4,   0,   0,   0, 
-     16,   0,   0,   7,  66,   0, 
+     16,   0,   0,   7, 130,   0, 
      16,   0,   1,   0,   0,   0, 
      70,   2,  16,   0,   4,   0, 
       0,   0,  70,   2,  16,   0, 
@@ -18749,7 +18749,7 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_8_D3D11[] =
      70,   2,  16,   0,   4,   0, 
       0,   0,  68,   0,   0,   5, 
      18,   0,  16,   0,   3,   0, 
-      0,   0,  42,   0,  16,   0, 
+      0,   0,  58,   0,  16,   0, 
       1,   0,   0,   0,  50,  32, 
       0,  11,  18,   0,  16,   0, 
       2,   0,   0,   0,  10,   0, 
@@ -18758,18 +18758,18 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_8_D3D11[] =
       0,   0,  58, 128,  32, 128, 
      65,   0,   0,   0,   0,   0, 
       0,   0,   3,   0,   0,   0, 
-     50,  32,   0,  10,  66,   0, 
+     50,  32,   0,  10, 130,   0, 
      16,   0,   1,   0,   0,   0, 
-     42,   0,  16,   0,   1,   0, 
+     58,   0,  16,   0,   1,   0, 
       0,   0,  42, 128,  32,   0, 
       0,   0,   0,   0,   3,   0, 
       0,   0,   1,  64,   0,   0, 
       0,   0, 128,  63,  50,   0, 
-      0,   9,  34,   0,  16,   0, 
+      0,   9,  66,   0,  16,   0, 
       1,   0,   0,   0,  10,   0, 
      16,   0,   2,   0,   0,   0, 
-     42,   0,  16,   0,   1,   0, 
-      0,   0,  26,   0,  16,   0, 
+     58,   0,  16,   0,   1,   0, 
+      0,   0,  42,   0,  16,   0, 
       1,   0,   0,   0,  56,   0, 
       0,   7,  50,   0,  16,   0, 
       3,   0,   0,   0,  86,   5, 
@@ -18811,7 +18811,7 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_8_D3D11[] =
      65,   0,   0,   0,   0,   0, 
       0,   0,  70,   2,  16,   0, 
       4,   0,   0,   0,  16,   0, 
-      0,   7,  66,   0,  16,   0, 
+      0,   7, 130,   0,  16,   0, 
       1,   0,   0,   0,  70,   2, 
      16,   0,   4,   0,   0,   0, 
      70,   2,  16,   0,   4,   0, 
@@ -18822,7 +18822,7 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_8_D3D11[] =
      16,   0,   4,   0,   0,   0, 
      68,   0,   0,   5,  18,   0, 
      16,   0,   3,   0,   0,   0, 
-     42,   0,  16,   0,   1,   0, 
+     58,   0,  16,   0,   1,   0, 
       0,   0,  50,  32,   0,  11, 
      18,   0,  16,   0,   2,   0, 
       0,   0,  10,   0,  16,   0, 
@@ -18831,52 +18831,52 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_8_D3D11[] =
      58, 128,  32, 128,  65,   0, 
       0,   0,   0,   0,   0,   0, 
       3,   0,   0,   0,  50,  32, 
-      0,  10,  66,   0,  16,   0, 
-      1,   0,   0,   0,  42,   0, 
+      0,  10, 130,   0,  16,   0, 
+      1,   0,   0,   0,  58,   0, 
      16,   0,   1,   0,   0,   0, 
      42, 128,  32,   0,   0,   0, 
       0,   0,   3,   0,   0,   0, 
       1,  64,   0,   0,   0,   0, 
     128,  63,  50,   0,   0,   9, 
-     34,   0,  16,   0,   1,   0, 
+     66,   0,  16,   0,   1,   0, 
       0,   0,  10,   0,  16,   0, 
-      2,   0,   0,   0,  42,   0, 
+      2,   0,   0,   0,  58,   0, 
      16,   0,   1,   0,   0,   0, 
-     26,   0,  16,   0,   1,   0, 
+     42,   0,  16,   0,   1,   0, 
       0,   0,  56,   0,   0,   7, 
-    194,   0,  16,   0,   1,   0, 
-      0,   0, 246,  15,  16,   0, 
+    146,   0,  16,   0,   1,   0, 
+      0,   0,   6,   0,  16,   0, 
       1,   0,   0,   0,   6,   4, 
      16,   0,   6,   0,   0,   0, 
-     64,   0,   0,   5, 194,   0, 
+     64,   0,   0,   5, 146,   0, 
      16,   0,   1,   0,   0,   0, 
-    166,  14,  16,   0,   1,   0, 
+      6,  12,  16,   0,   1,   0, 
       0,   0,  50,   0,   0,   9, 
-    194,   0,  16,   0,   1,   0, 
-      0,   0, 166,  14,  16,   0, 
+    146,   0,  16,   0,   1,   0, 
+      0,   0,   6,  12,  16,   0, 
       1,   0,   0,   0, 166,  14, 
      16,   0,   3,   0,   0,   0, 
       6,  20,  16,   0,   1,   0, 
       0,   0,  72,   0,   0, 141, 
     194,   0,   0, 128,  67,  85, 
      21,   0,  66,   0,  16,   0, 
-      3,   0,   0,   0, 230,  10, 
+      3,   0,   0,   0, 198,   0, 
      16,   0,   1,   0,   0,   0, 
     150, 124,  16,   0,   0,   0, 
       0,   0,   0,  96,  16,   0, 
       0,   0,   0,   0,   1,  64, 
       0,   0,   0,   0,   0,   0, 
-     50,   0,   0,  11, 194,   0, 
+     50,   0,   0,  11, 146,   0, 
      16,   0,   1,   0,   0,   0, 
       6, 132,  32,   0,   0,   0, 
       0,   0,   2,   0,   0,   0, 
-    166,  14,  16,   0,   1,   0, 
+      6,  12,  16,   0,   1,   0, 
       0,   0, 166, 142,  32,   0, 
       0,   0,   0,   0,   2,   0, 
       0,   0,  56,   0,   0,   7, 
      50,   0,  16,   0,   3,   0, 
       0,   0, 166,  10,  16,   0, 
-      3,   0,   0,   0, 230,  10, 
+      3,   0,   0,   0, 198,   0, 
      16,   0,   1,   0,   0,   0, 
       0,   0,   0,   8, 114,   0, 
      16,   0,   3,   0,   0,   0, 
@@ -18893,13 +18893,13 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_8_D3D11[] =
     150,   7,  16,   0,   2,   0, 
       0,   0,  70,   2,  16,   0, 
       3,   0,   0,   0,  68,   0, 
-      0,   5,  66,   0,  16,   0, 
+      0,   5,  18,   0,  16,   0, 
       1,   0,   0,   0,  26,   0, 
      16,   0,   0,   0,   0,   0, 
      50,  32,   0,  11,  66,   0, 
      16,   0,   0,   0,   0,   0, 
      42,   0,  16,   0,   0,   0, 
-      0,   0,  42,   0,  16,   0, 
+      0,   0,  10,   0,  16,   0, 
       1,   0,   0,   0,  58, 128, 
      32, 128,  65,   0,   0,   0, 
       0,   0,   0,   0,   3,   0, 
@@ -18914,7 +18914,7 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_8_D3D11[] =
      16,   0,   0,   0,   0,   0, 
      42,   0,  16,   0,   0,   0, 
       0,   0,  26,   0,  16,   0, 
-      0,   0,   0,   0,  26,   0, 
+      0,   0,   0,   0,  42,   0, 
      16,   0,   1,   0,   0,   0, 
      56,   0,   0,   8,  34,   0, 
      16,   0,   0,   0,   0,   0, 
@@ -18923,7 +18923,7 @@ const BYTE g_DebugAO_PS_ENABLE_BLUR_1_NUM_STEPS_8_D3D11[] =
       0,   0,   0,   0,   4,   0, 
       0,   0,  50,   0,   0,  10, 
      34,   0,  16,   0,   0,   0, 
-      0,   0,  10,   0,  16,   0, 
+      0,   0,  26,   0,  16,   0, 
       1,   0,   0,   0,  10, 128, 
      32,   0,   0,   0,   0,   0, 
       4,   0,   0,   0,  26,   0, 

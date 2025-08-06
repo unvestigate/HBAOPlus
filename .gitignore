@@ -1,0 +1,8 @@
+.vscode/
+build/tools/ShaderBuildTool/x64/
+*.user
+.vs/
+*.log
+*.tlog
+*.[Oo]bj
+*.recipe

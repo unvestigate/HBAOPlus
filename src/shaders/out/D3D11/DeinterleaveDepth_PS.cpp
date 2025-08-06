@@ -26,8 +26,8 @@
 //
 ps_5_0
 dcl_globalFlags refactoringAllowed
-dcl_constantbuffer cb0[2], immediateIndexed
-dcl_constantbuffer cb1[2], immediateIndexed
+dcl_constantbuffer CB0[2], immediateIndexed
+dcl_constantbuffer CB1[2], immediateIndexed
 dcl_sampler s0, mode_default
 dcl_resource_texture2d (float,float,float,float) t0
 dcl_input_ps_siv linear noperspective v0.xy, position
@@ -248,8 +248,8 @@ const BYTE g_DeinterleaveDepth_PS_DEPTH_LAYER_COUNT_1_D3D11[] =
 //
 ps_5_0
 dcl_globalFlags refactoringAllowed
-dcl_constantbuffer cb0[2], immediateIndexed
-dcl_constantbuffer cb1[2], immediateIndexed
+dcl_constantbuffer CB0[2], immediateIndexed
+dcl_constantbuffer CB1[2], immediateIndexed
 dcl_sampler s0, mode_default
 dcl_resource_texture2d (float,float,float,float) t0
 dcl_resource_texture2d (float,float,float,float) t1

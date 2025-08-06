@@ -19,8 +19,8 @@
 //
 ps_5_0
 dcl_globalFlags refactoringAllowed
-dcl_constantbuffer cb0[9], immediateIndexed
-dcl_constantbuffer cb1[2], immediateIndexed
+dcl_constantbuffer CB0[9], immediateIndexed
+dcl_constantbuffer CB1[2], immediateIndexed
 dcl_sampler s0, mode_default
 dcl_resource_texture2darray (float,float,float,float) t0
 dcl_resource_texture2d (float,float,float,float) t1
@@ -3424,8 +3424,8 @@ const BYTE g_CoarseAO_PS_FETCH_GBUFFER_NORMAL_0_DEPTH_LAYER_COUNT_1_NUM_STEPS_4_
 //
 ps_5_0
 dcl_globalFlags refactoringAllowed
-dcl_constantbuffer cb0[9], immediateIndexed
-dcl_constantbuffer cb1[2], immediateIndexed
+dcl_constantbuffer CB0[9], immediateIndexed
+dcl_constantbuffer CB1[2], immediateIndexed
 dcl_sampler s0, mode_default
 dcl_resource_texture2darray (float,float,float,float) t0
 dcl_resource_texture2d (float,float,float,float) t1
@@ -9740,8 +9740,8 @@ const BYTE g_CoarseAO_PS_FETCH_GBUFFER_NORMAL_0_DEPTH_LAYER_COUNT_1_NUM_STEPS_8_
 //
 ps_5_0
 dcl_globalFlags refactoringAllowed
-dcl_constantbuffer cb0[9], immediateIndexed
-dcl_constantbuffer cb1[2], immediateIndexed
+dcl_constantbuffer CB0[9], immediateIndexed
+dcl_constantbuffer CB1[2], immediateIndexed
 dcl_sampler s0, mode_default
 dcl_resource_texture2darray (float,float,float,float) t0
 dcl_resource_texture2d (float,float,float,float) t1
@@ -15249,8 +15249,8 @@ const BYTE g_CoarseAO_PS_FETCH_GBUFFER_NORMAL_0_DEPTH_LAYER_COUNT_2_NUM_STEPS_4_
 //
 ps_5_0
 dcl_globalFlags refactoringAllowed
-dcl_constantbuffer cb0[9], immediateIndexed
-dcl_constantbuffer cb1[2], immediateIndexed
+dcl_constantbuffer CB0[9], immediateIndexed
+dcl_constantbuffer CB1[2], immediateIndexed
 dcl_sampler s0, mode_default
 dcl_resource_texture2darray (float,float,float,float) t0
 dcl_resource_texture2d (float,float,float,float) t1
@@ -25780,8 +25780,8 @@ const BYTE g_CoarseAO_PS_FETCH_GBUFFER_NORMAL_0_DEPTH_LAYER_COUNT_2_NUM_STEPS_8_
 //
 ps_5_0
 dcl_globalFlags refactoringAllowed
-dcl_constantbuffer cb0[14], immediateIndexed
-dcl_constantbuffer cb1[2], immediateIndexed
+dcl_constantbuffer CB0[14], immediateIndexed
+dcl_constantbuffer CB1[2], immediateIndexed
 dcl_sampler s0, mode_default
 dcl_resource_texture2darray (float,float,float,float) t0
 dcl_resource_texture2d (float,float,float,float) t1
@@ -29226,8 +29226,8 @@ const BYTE g_CoarseAO_PS_FETCH_GBUFFER_NORMAL_1_DEPTH_LAYER_COUNT_1_NUM_STEPS_4_
 //
 ps_5_0
 dcl_globalFlags refactoringAllowed
-dcl_constantbuffer cb0[14], immediateIndexed
-dcl_constantbuffer cb1[2], immediateIndexed
+dcl_constantbuffer CB0[14], immediateIndexed
+dcl_constantbuffer CB1[2], immediateIndexed
 dcl_sampler s0, mode_default
 dcl_resource_texture2darray (float,float,float,float) t0
 dcl_resource_texture2d (float,float,float,float) t1
@@ -35583,8 +35583,8 @@ const BYTE g_CoarseAO_PS_FETCH_GBUFFER_NORMAL_1_DEPTH_LAYER_COUNT_1_NUM_STEPS_8_
 //
 ps_5_0
 dcl_globalFlags refactoringAllowed
-dcl_constantbuffer cb0[14], immediateIndexed
-dcl_constantbuffer cb1[2], immediateIndexed
+dcl_constantbuffer CB0[14], immediateIndexed
+dcl_constantbuffer CB1[2], immediateIndexed
 dcl_sampler s0, mode_default
 dcl_resource_texture2darray (float,float,float,float) t0
 dcl_resource_texture2d (float,float,float,float) t1
@@ -41133,8 +41133,8 @@ const BYTE g_CoarseAO_PS_FETCH_GBUFFER_NORMAL_1_DEPTH_LAYER_COUNT_2_NUM_STEPS_4_
 //
 ps_5_0
 dcl_globalFlags refactoringAllowed
-dcl_constantbuffer cb0[14], immediateIndexed
-dcl_constantbuffer cb1[2], immediateIndexed
+dcl_constantbuffer CB0[14], immediateIndexed
+dcl_constantbuffer CB1[2], immediateIndexed
 dcl_sampler s0, mode_default
 dcl_resource_texture2darray (float,float,float,float) t0
 dcl_resource_texture2d (float,float,float,float) t1
@@ -51705,8 +51705,8 @@ const BYTE g_CoarseAO_PS_FETCH_GBUFFER_NORMAL_1_DEPTH_LAYER_COUNT_2_NUM_STEPS_8_
 //
 ps_5_0
 dcl_globalFlags refactoringAllowed
-dcl_constantbuffer cb0[14], immediateIndexed
-dcl_constantbuffer cb1[2], immediateIndexed
+dcl_constantbuffer CB0[14], immediateIndexed
+dcl_constantbuffer CB1[2], immediateIndexed
 dcl_sampler s0, mode_default
 dcl_resource_texture2darray (float,float,float,float) t0
 dcl_resource_texture2dms(0) (float,float,float,float) t1
@@ -55153,8 +55153,8 @@ const BYTE g_CoarseAO_PS_FETCH_GBUFFER_NORMAL_2_DEPTH_LAYER_COUNT_1_NUM_STEPS_4_
 //
 ps_5_0
 dcl_globalFlags refactoringAllowed
-dcl_constantbuffer cb0[14], immediateIndexed
-dcl_constantbuffer cb1[2], immediateIndexed
+dcl_constantbuffer CB0[14], immediateIndexed
+dcl_constantbuffer CB1[2], immediateIndexed
 dcl_sampler s0, mode_default
 dcl_resource_texture2darray (float,float,float,float) t0
 dcl_resource_texture2dms(0) (float,float,float,float) t1
@@ -61511,8 +61511,8 @@ const BYTE g_CoarseAO_PS_FETCH_GBUFFER_NORMAL_2_DEPTH_LAYER_COUNT_1_NUM_STEPS_8_
 //
 ps_5_0
 dcl_globalFlags refactoringAllowed
-dcl_constantbuffer cb0[14], immediateIndexed
-dcl_constantbuffer cb1[2], immediateIndexed
+dcl_constantbuffer CB0[14], immediateIndexed
+dcl_constantbuffer CB1[2], immediateIndexed
 dcl_sampler s0, mode_default
 dcl_resource_texture2darray (float,float,float,float) t0
 dcl_resource_texture2dms(0) (float,float,float,float) t1
@@ -67062,8 +67062,8 @@ const BYTE g_CoarseAO_PS_FETCH_GBUFFER_NORMAL_2_DEPTH_LAYER_COUNT_2_NUM_STEPS_4_
 //
 ps_5_0
 dcl_globalFlags refactoringAllowed
-dcl_constantbuffer cb0[14], immediateIndexed
-dcl_constantbuffer cb1[2], immediateIndexed
+dcl_constantbuffer CB0[14], immediateIndexed
+dcl_constantbuffer CB1[2], immediateIndexed
 dcl_sampler s0, mode_default
 dcl_resource_texture2darray (float,float,float,float) t0
 dcl_resource_texture2dms(0) (float,float,float,float) t1

@@ -21,7 +21,7 @@
 //
 gs_5_0
 dcl_globalFlags refactoringAllowed
-dcl_constantbuffer cb1[2], immediateIndexed
+dcl_constantbuffer CB1[2], immediateIndexed
 dcl_input_siv v[3][0].xyzw, position
 dcl_input v[3][1].xy
 dcl_inputprimitive triangle 

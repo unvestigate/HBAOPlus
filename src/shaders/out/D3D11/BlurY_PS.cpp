@@ -19,7 +19,7 @@
 //
 ps_5_0
 dcl_globalFlags refactoringAllowed
-dcl_constantbuffer cb0[8], immediateIndexed
+dcl_constantbuffer CB0[8], immediateIndexed
 dcl_sampler s0, mode_default
 dcl_resource_texture2d (float,float,float,float) t0
 dcl_input_ps_siv linear noperspective v0.xy, position
@@ -390,7 +390,7 @@ const BYTE g_BlurY_PS_ENABLE_SHARPNESS_PROFILE_0_KERNEL_RADIUS_2_D3D11[] =
 //
 ps_5_0
 dcl_globalFlags refactoringAllowed
-dcl_constantbuffer cb0[8], immediateIndexed
+dcl_constantbuffer CB0[8], immediateIndexed
 dcl_sampler s0, mode_default
 dcl_sampler s1, mode_default
 dcl_resource_texture2d (float,float,float,float) t0
@@ -870,7 +870,7 @@ const BYTE g_BlurY_PS_ENABLE_SHARPNESS_PROFILE_0_KERNEL_RADIUS_4_D3D11[] =
 //
 ps_5_0
 dcl_globalFlags refactoringAllowed
-dcl_constantbuffer cb0[8], immediateIndexed
+dcl_constantbuffer CB0[8], immediateIndexed
 dcl_sampler s0, mode_default
 dcl_resource_texture2d (float,float,float,float) t0
 dcl_input_ps_siv linear noperspective v0.xy, position
@@ -1266,7 +1266,7 @@ const BYTE g_BlurY_PS_ENABLE_SHARPNESS_PROFILE_1_KERNEL_RADIUS_2_D3D11[] =
 //
 ps_5_0
 dcl_globalFlags refactoringAllowed
-dcl_constantbuffer cb0[8], immediateIndexed
+dcl_constantbuffer CB0[8], immediateIndexed
 dcl_sampler s0, mode_default
 dcl_sampler s1, mode_default
 dcl_resource_texture2d (float,float,float,float) t0

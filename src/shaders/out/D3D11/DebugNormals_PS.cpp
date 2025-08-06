@@ -19,7 +19,7 @@
 //
 ps_5_0
 dcl_globalFlags refactoringAllowed
-dcl_constantbuffer cb0[9], immediateIndexed
+dcl_constantbuffer CB0[9], immediateIndexed
 dcl_sampler s0, mode_default
 dcl_resource_texture2d (float,float,float,float) t0
 dcl_input_ps_siv linear noperspective v0.xy, position
@@ -442,7 +442,7 @@ const BYTE g_DebugNormals_PS_FETCH_GBUFFER_NORMAL_0_D3D11[] =
 //
 ps_5_0
 dcl_globalFlags refactoringAllowed
-dcl_constantbuffer cb0[14], immediateIndexed
+dcl_constantbuffer CB0[14], immediateIndexed
 dcl_resource_texture2d (float,float,float,float) t1
 dcl_input_ps_siv linear noperspective v0.xy, position
 dcl_output o0.xyzw
@@ -622,7 +622,7 @@ const BYTE g_DebugNormals_PS_FETCH_GBUFFER_NORMAL_1_D3D11[] =
 //
 ps_5_0
 dcl_globalFlags refactoringAllowed
-dcl_constantbuffer cb0[14], immediateIndexed
+dcl_constantbuffer CB0[14], immediateIndexed
 dcl_resource_texture2dms(0) (float,float,float,float) t1
 dcl_input_ps_siv linear noperspective v0.xy, position
 dcl_output o0.xyzw
